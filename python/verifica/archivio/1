@@ -1,0 +1,7 @@
+aqda
+15
+
+In my examples I use the 'b' flag ('wb', 'rb') when opening the files because you said you wanted to read bytes. The 'b' flag tells Python not to interpret end-of-line characters which can differ between operating systems. If you are reading text, then omit the 'b' and use 'w' and 'r' respectively.
+
+This reads the entire file in one chunk using the "simplest" Python code. The problem with this approach is that you could run out memory when reading a large file:
+
