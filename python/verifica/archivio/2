@@ -1,8 +1,0 @@
-s
-
-1. il suo UID
-2. il nome dell’utente che lo possiede
-3. il suo PPID
-4. Dire se il processo è sensibile al problema “Speculation_Store_Bypass”
-5. * Tutti i processi affetti da “Speculation_Store_Bypass”
-6. ** Trovare l’
