@@ -1,0 +1,5 @@
+# fileinstringa.py
+
+Script in python molto semplice:
+  Dati la stringa da ricercare ed il file dove cercarla, passati come due parametri di ingresso, cerca per l'appunto nel file la striga.
+  Se la stringa e' presente, il programma avvisa l'utente del successo nella ricerca; Se non e' presente, l'utente viene anche in questo caso avvisato.
