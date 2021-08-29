@@ -1,3 +1,4 @@
+# Cercafile.py
 Script in Python dove, dato un percorso assoluto ("path") ed il nome di un file ("nome"),
 controlla se nel percorso indicato esiste un file con il nome anch'esso indicato.
 
