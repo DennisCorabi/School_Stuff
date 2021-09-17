@@ -1,0 +1,18 @@
+numero biglietto: 4
+anello: 64
+zona: 6
+settore 4
+orientamento: 7
+
+numero biglietto: 4
+anello: 3
+zona: 5
+settore 7
+orientamento: 7
+
+numero biglietto: 3
+anello: 3
+zona: 5
+settore 7
+orientamento: 8
+

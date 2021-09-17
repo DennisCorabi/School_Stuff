@@ -1,5 +1,4 @@
 import os
-from posix import listdir
 import sys
 
 global lista
