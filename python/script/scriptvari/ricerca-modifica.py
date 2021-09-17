@@ -34,8 +34,9 @@ def find_file(dirs):
 
 def modify_text(filepath):
     file=open(filepath,"r")
-    if PARAMETERS[2] in file.readlines():
+    if PARAMETERS[2] in file.read():
         print("\tPAROLA ({}) TROVATA IN {}".format(PARAMETERS[2],filepath))
+        #WORK IN PROGRESS   
 
 
 
