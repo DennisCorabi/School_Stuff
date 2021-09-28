@@ -13,7 +13,7 @@ int main()
 	for (int id=0; id<4; id++) 
 	{
 		sleep(0.01);
-		if ((pidForked = fork()) == 0)
+		if ((pidForked = fork()) == 0)			//CREO FIGLI
 			baby();
 	}
 
