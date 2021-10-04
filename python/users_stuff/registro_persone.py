@@ -1,7 +1,6 @@
 import time
 import random
 import datetime
-from sqlite3.dbapi2 import connect
 from tkinter import *
 from typing import Collection, Counter
 
