@@ -8,12 +8,14 @@ struct node{
     struct node * next;
 };
 
-void printList(node * testa);
 node *  addlist(node * head);
+void printList(node * head);
 void addAt(node * head);
 node * elementAt(int indice, node * head);
 int sizeList(node * head);
 void sortList(node * head);
+void delList(node * head);
+node * addMany(node * head);
 
 /*
 FUNZIONE main:
@@ -21,13 +23,14 @@ FUNZIONE main:
     */
 
 int main(void){
-    node *lista = NULL;
+    node *lista = NULL;     //inizializzazione di una lista vuota, per ora.
     int scelta;
     do{
         printf("\ncosa vuoi fare?\n");
         printf("1: aggiungi nodi alla lista.\n2:stampa contentuto di una lista.\n");
         printf("3: sostituisci un elemento in un nodo della lista\n4:ordina gli elementi della lista.\n");
-        printf("5: crea ed inserisce tanti nodi quanti ne vuoi!\n0: esci dal programma.\n");
+        printf("5: elimina un nodo della lista.\n6: inserisci tanti nodi quanti ne vuoi! \n");
+        printf("0: esci dal programma.\n");
         printf("scelta: ");
         scanf("%d",&scelta);
         switch(scelta){
@@ -46,7 +49,10 @@ int main(void){
                 sortList(lista);
                 break;
             case 5:
-                printf("ciao");
+                delList(lista);
+                break;
+            case 6:
+                lista=addMany(lista);
             case 0:
                 break;
             default:
@@ -85,6 +91,25 @@ node* addlist(node *head){
     temp->next = newnode;           //dopo aver trovato la fine della lista, aggiungo un altro nodo contenente le informazioni di newnode.
     return head;
 }
+
+/*
+FUNZIONE addMany:
+    creazione di tanti nodi quanti ne vuole inserire l'utente.
+    Dopo aver chiesto il numero di nodi da creare, chiamata la funzione addlist tante volte quanti sono i nodi da creare.
+*/
+
+node * addMany(node * head){
+    int cont;
+    do{
+        printf("quanti nodi vuoi inserire all'interno della lista (maggiori di 0) ? ");     //chiedo all'utente il numero di nodi da inserire.
+        scanf("%d",&cont);
+    }while(cont<=0);     
+
+    for (int i=0;i<cont;i++){
+        head=addlist(head);         //chiamo 'cont' volte la funzione che permette di creare ed inserire un nodo nella lista.
+    }
+    return head;
+}
 /*
 FUNZIONE addAt:
     sostituzione dell'elemento di un nodo dato il suo indice e la lista a cui appartiene.
@@ -94,7 +119,7 @@ void addAt(node * head){
     int index,size=sizeList(head),sostituto;
 
     do{
-        printf("inserisci l'indice del nodo da ricercare (minore di %d): ",size);
+        printf("inserisci l'indice del nodo da ricercare (minore e uguale a %d): ",size-1);
         scanf("%d",&index);
 
     }while(index>size);
@@ -153,6 +178,8 @@ FUNZIONE sortList:
 */
 
 void sortList(node * head){
+
+
     node * temp=head;               //creo nodo temporaneo
     int size=sizeList(head);        //definisco la grandezza della lista grazie alla funzione sizelist
     int vet[size];
@@ -178,4 +205,17 @@ void sortList(node * head){
         printf("%d; ",vet[i]);
     }
     printf("\n\n");
+}
+
+void delList(node * head){
+    int size=sizeList(head), indice;
+    do{
+        printf("inserisci l'indice del nodo da eliminare (minore o uguale a %d): ",size-1);
+        scanf("%d",&indice);
+    }while(indice>size);
+    node * temp=elementAt(indice,head);
+    temp->next=temp;
+    free(temp);
+    printf("index %d object %d\n\n",temp->index,temp->elemento);
+
 }
