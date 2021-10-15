@@ -26,17 +26,10 @@ int main(void){
     int scelta;
     do{
         printf("\ncosa vuoi fare?\n");
-<<<<<<< HEAD
         printf("1: aggiungi nodi alla lista.\n2: stampa contentuto di una lista.\n");
         printf("3: sostituisci un elemento in un nodo della lista\n4: ordina gli elementi della lista.\n");
         printf("5: inserisci tanti nodi quanti ne vuoi! \n");
         printf("0: esci dal programma.\n\n");
-=======
-        printf("1: aggiungi nodo alla lista.\n2:stampa contentuto di una lista.\n");
-        printf("3: sostituisci un elemento in un nodo della lista\n4:ordina gli elementi della lista.\n");
-        printf("5: inserisci tanti nodi quanti ne vuoi!\n");
-        printf("0: esci dal programma.\n");
->>>>>>> fe831cb5a4164d7fdce6f620cb42d252ef68aaf9
         printf("scelta: ");
         scanf("%d",&scelta);
         switch(scelta){
