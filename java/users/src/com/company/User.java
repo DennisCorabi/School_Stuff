@@ -13,5 +13,12 @@ public class User{
     public void setNome(String nome){
         this.name=nome;
     }
+    public void setEta(int eta){
+        this.eta=eta;
     }
+    public void setCognome(String cognome){
+        this.cognome=cognome;
+    }
+
+}
 

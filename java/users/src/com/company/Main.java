@@ -5,10 +5,52 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args){
-            Classroom classe1 = CreateClassroom();
-            InsertUsers(3,classe1);
-            classe1.setName(1);
-            classe1.GetUsers();
+        int scelta=0;
+        Classroom classe1 = CreateClassroom();
+        classe1.GetUsers();
+        do{
+            System.out.print("\n" +
+                    "1: inserisci un alunno" +
+                    "\n2: cambia nome di un alunno" +
+                    "\n3: cambia eta' dell'alunno" +
+                    "\n4: Cambia cognome di un alunno"+
+                    "\n5: stampa informazioni di un alunno specifico" +
+                    "\n6: stampa tutti gli alunni di una classe." +
+                    "\n0: esci dal programma.");
+
+            System.out.print("\n\nscelta: ");
+            scelta=scanner.nextInt();
+
+            switch (scelta){
+                case 1:
+                    classe1.InsertUsers();
+                    break;
+                case 2:
+                    classe1.setName();
+                    break;
+                case 3:
+                    classe1.setAge();
+                    break;
+                case 4:
+                    classe1.setCognome();
+                case 5:
+                    classe1.GetUsrInfo();
+                    break;
+                case 6:
+                    classe1.GetUsers();
+                    break;
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("inserisci un numero corrispondente alle funzioni!");
+                    break;
+
+
+
+            }
+
+        }while (scelta!=0);
     }
 
 
@@ -25,20 +67,5 @@ public class Main {
 
         }while (grandezza<=0);
         return new Classroom(nome,grandezza);
-    }
-
-    public static void InsertUsers(int grandezza, Classroom classe){
-        int i,eta;
-        String nome,cognome;
-        for (i=0;i<grandezza;i++) {
-            System.out.printf("Inserisci il nome dell'alunno di registro numero %d: ", i + 1);
-            nome = scanner.next();
-            System.out.printf("Inserisci il cognome dell'alunno di registro numero %s:", i + 1);
-            cognome = scanner.next();
-            System.out.printf("Inserisci l'eta' dell'alunno di registro numero %d: ", i + 1);
-            eta = scanner.nextInt();
-            classe.InsertUsers(nome,cognome,eta);
-        }
-        classe.GetUsers();
     }
 }
