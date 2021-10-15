@@ -10,5 +10,8 @@ public class User{
         this.eta = eta;
         this.cognome = cognome;
         }
+    public void setNome(String nome){
+        this.name=nome;
+    }
     }
 

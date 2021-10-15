@@ -6,9 +6,9 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args){
             Classroom classe1 = CreateClassroom();
-            classe1.InsertUsers("dennis","corabi",17);
-            classe1.GetUsrInfo("dennis","corabi");
-            classe1.GetUsrInfo("giovanni","o");
+            InsertUsers(3,classe1);
+            classe1.setName(1);
+            classe1.GetUsers();
     }
 
 
@@ -26,18 +26,19 @@ public class Main {
         }while (grandezza<=0);
         return new Classroom(nome,grandezza);
     }
-    public void InsertUsers(int grandezza){
+
+    public static void InsertUsers(int grandezza, Classroom classe){
         int i,eta;
         String nome,cognome;
         for (i=0;i<grandezza;i++) {
-            System.out.printf("inserisci il nome dell'alunno di registro numero %d: ", i + 1);
+            System.out.printf("Inserisci il nome dell'alunno di registro numero %d: ", i + 1);
             nome = scanner.next();
-            System.out.printf("\ninserisci il cognome dell'alunno di registro numero %s:", i + 1);
+            System.out.printf("Inserisci il cognome dell'alunno di registro numero %s:", i + 1);
             cognome = scanner.next();
-            System.out.printf("inserisci l'eta' dell'alunno di registro numero %d: ", i + 1);
+            System.out.printf("Inserisci l'eta' dell'alunno di registro numero %d: ", i + 1);
             eta = scanner.nextInt();
-            //TODO
-
+            classe.InsertUsers(nome,cognome,eta);
         }
+        classe.GetUsers();
     }
 }

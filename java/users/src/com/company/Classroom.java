@@ -22,18 +22,22 @@ public class Classroom {
             classe.add(new User(nome,cognome,eta));
     }
 
-    public Boolean GetUsrInfo(String nome, String cognome){
+    public void GetUsrInfo(String nome, String cognome){
         for(User obj: classe)
             if (obj.name.equals(nome) && obj.cognome.equals(cognome)) {
                 System.out.printf("Nome: %s\nCognome: %s\nEta': %d\n", obj.name, obj.cognome, obj.eta);
-                return true;
+                break;
             }
         System.out.printf("non sono stati trovati alunni con nome: %s e cognome: %s.\n",nome,cognome);
-        return false;
     }
     public void GetUsers(){
         for (User obj: classe){
             System.out.printf("Nome: %s\tCognome: %s\tEta': %d\n",obj.name,obj.cognome, obj.eta);
         }
+        System.out.print("\n");
+    }
+    public void setName(int index){
+        System.out.print("inserisci il nome: ");
+        classe.get(index).setNome(Main.scanner.next());
     }
 }
