@@ -26,10 +26,17 @@ int main(void){
     int scelta;
     do{
         printf("\ncosa vuoi fare?\n");
+<<<<<<< HEAD
         printf("1: aggiungi nodi alla lista.\n2: stampa contentuto di una lista.\n");
         printf("3: sostituisci un elemento in un nodo della lista\n4: ordina gli elementi della lista.\n");
         printf("5: inserisci tanti nodi quanti ne vuoi! \n");
         printf("0: esci dal programma.\n\n");
+=======
+        printf("1: aggiungi nodo alla lista.\n2:stampa contentuto di una lista.\n");
+        printf("3: sostituisci un elemento in un nodo della lista\n4:ordina gli elementi della lista.\n");
+        printf("5: inserisci tanti nodi quanti ne vuoi!\n");
+        printf("0: esci dal programma.\n");
+>>>>>>> fe831cb5a4164d7fdce6f620cb42d252ef68aaf9
         printf("scelta: ");
         scanf("%d",&scelta);
         switch(scelta){
@@ -62,8 +69,8 @@ int main(void){
 
 /*
 FUNZIONE addlist:
-    creazione di un nuovo nodo ed inserimento dello stesso nella lista la cui "testa"
-    (ultimoè passata alla funzione come secondo argomento.*/
+    creazione di un nuovo nodo ed inserimento dello stesso nella lista la cui "testa" 
+    è passata alla funzione come primo argomento.*/
 
 node* addlist(node *head){
     node * newnode;                 //creazione nuovo nodo (da poi inserire nella lista).
@@ -106,6 +113,7 @@ node * addMany(node * head){
     }
     return head;
 }
+
 /*
 FUNZIONE addAt:
     sostituzione dell'elemento di un nodo dato il suo indice e la lista a cui appartiene.
@@ -115,15 +123,15 @@ void addAt(node * head){
     int index,size=sizeList(head),sostituto;
 
     do{
-        printf("inserisci l'indice del nodo da ricercare (minore e uguale a %d): ",size-1);
+        printf("inserisci l'indice del nodo da ricercare (minore e uguale a %d): ",size-1); //rimane nel ciclo do-while finchè l'indice da ricercare non è minore della grandezza della lista.
         scanf("%d",&index);
 
     }while(index>size);
 
-    printf("inserisci nuovo numero: ");
+    printf("inserisci nuovo numero: ");         //inserisco il numero da sostituire
     scanf("%d",&sostituto);
   
-    node * temp=elementAt(index,head);
+    node * temp=elementAt(index,head);      //funzione che permette di ricercare un particolare nodo della lista in base alla sua posizione all'interno di essa.
     temp->elemento=sostituto;     //sostituisco il valore del nodo con l'indice ricercato.
 }
 
@@ -161,10 +169,10 @@ FUNZIONE sizeList:
 int sizeList(node * head){
     int i=0;
     while (head!=NULL){
-        head=head->next;
+        head=head->next;            //rimane nel ciclo while finchè non arriva alla fine della lista (ovvero al nodo che punta a NULL)
         i++;
     }
-    return i;
+    return i;       //ritorna la variabile contenente la grandezza della lista.
 }
 
 /*
