@@ -14,7 +14,6 @@ void addAt(node * head);
 node * elementAt(int indice, node * head);
 int sizeList(node * head);
 void sortList(node * head);
-void delList(node * head);
 node * addMany(node * head);
 
 /*
@@ -27,10 +26,10 @@ int main(void){
     int scelta;
     do{
         printf("\ncosa vuoi fare?\n");
-        printf("1: aggiungi nodi alla lista.\n2:stampa contentuto di una lista.\n");
-        printf("3: sostituisci un elemento in un nodo della lista\n4:ordina gli elementi della lista.\n");
-        printf("5: elimina un nodo della lista.\n6: inserisci tanti nodi quanti ne vuoi! \n");
-        printf("0: esci dal programma.\n");
+        printf("1: aggiungi nodi alla lista.\n2: stampa contentuto di una lista.\n");
+        printf("3: sostituisci un elemento in un nodo della lista\n4: ordina gli elementi della lista.\n");
+        printf("5: inserisci tanti nodi quanti ne vuoi! \n");
+        printf("0: esci dal programma.\n\n");
         printf("scelta: ");
         scanf("%d",&scelta);
         switch(scelta){
@@ -49,9 +48,6 @@ int main(void){
                 sortList(lista);
                 break;
             case 5:
-                delList(lista);
-                break;
-            case 6:
                 lista=addMany(lista);
             case 0:
                 break;
@@ -141,7 +137,7 @@ void printList(node * head){
         printf("%d: %d -> ",head->index,head->elemento);        //stampo indice e contenuto del nodo.
         head=head->next;        //passo al nodo successivo.
     }
-    printf("\n\n");
+    printf("NULL\n\n");
 }
 
 
@@ -205,17 +201,4 @@ void sortList(node * head){
         printf("%d; ",vet[i]);
     }
     printf("\n\n");
-}
-
-void delList(node * head){
-    int size=sizeList(head), indice;
-    do{
-        printf("inserisci l'indice del nodo da eliminare (minore o uguale a %d): ",size-1);
-        scanf("%d",&indice);
-    }while(indice>size);
-    node * temp=elementAt(indice,head);
-    temp->next=temp;
-    free(temp);
-    printf("index %d object %d\n\n",temp->index,temp->elemento);
-
 }
