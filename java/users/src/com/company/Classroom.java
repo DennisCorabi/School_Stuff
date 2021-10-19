@@ -3,10 +3,11 @@ package com.company;
 import java.util.Scanner;
 import java.util.Vector;
 public class Classroom {
-    int grandezza;
+
+    final int grandezza;
     String nome;
-    public Vector<User> classe = new Vector<>();
-    static Scanner scanner = new Scanner(System.in);
+    Vector<User> classe = new Vector<>();
+    static final Scanner scanner = new Scanner(System.in);
     //STATICO: VARIABILE E/O OGGETTO CONDIVISO DA TUTTI GLI OGGETTI DI UNA CLASSE, REMEMBER.
 
     //costrutto iniziale
@@ -76,7 +77,7 @@ public class Classroom {
     private int GetIndex(){
         int index;
         do{
-            System.out.print("inserisci il numero di registro dell'alunno: ");
+            System.out.print("inserisci il numero di registro dell'alunno (minore o uguale a "+this.classe.size()+"): ");
             index = scanner.nextInt();
         }while(index>this.classe.size());
 
@@ -85,15 +86,21 @@ public class Classroom {
 
     }
     public void setName(){
+        String nome;
         System.out.print("inserisci il nome da cambiare: ");
-        classe.get(GetIndex()-1).setNome(scanner.next());
+        nome=scanner.next();
+        classe.get(GetIndex()-1).setNome(nome);
     }
     public void setAge(){
+        int eta;
         System.out.print("inserisci l'eta' da cambiare: ");
-        classe.get(GetIndex()-1).setEta(scanner.nextInt());
+        eta = scanner.nextInt();
+        classe.get(GetIndex()-1).setEta(eta);
     }
     public void setCognome(){
+        String cognome;
         System.out.print("inserisci il cognome da cambiare: ");
-        classe.get(GetIndex()-1).setCognome(scanner.next());
+        cognome=scanner.next();
+        classe.get(GetIndex()-1).setCognome(cognome);
     }
 }
