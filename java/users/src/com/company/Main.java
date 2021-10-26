@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args){
         Menu scuola = new Menu(new Scuola());
-        scuola.first
+        scuola.first();
 
     }
 }
