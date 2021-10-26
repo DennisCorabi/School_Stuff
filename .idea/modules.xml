@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/java/primi/primi.iml" filepath="$PROJECT_DIR$/java/primi/primi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/school_stuff.iml" filepath="$PROJECT_DIR$/.idea/school_stuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/users/users.iml" filepath="$PROJECT_DIR$/java/users/users.iml" />
+    </modules>
+  </component>
+</project>
