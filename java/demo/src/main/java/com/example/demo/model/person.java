@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.source.doctree.UsesTree;
 
 import java.util.UUID;
 
