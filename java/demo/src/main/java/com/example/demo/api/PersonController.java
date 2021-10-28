@@ -21,19 +21,22 @@ public class PersonController {                     //person controller
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
+
     @PostMapping                //richiesta HTTP per scrivere su un database
     public void addPerson(@RequestBody Person person){
         personService.AddPerson(person);
-        System.out.println(person.getName()+";\t"+person.getId());
     }
-    @GetMapping                         //richiesta HTTP per prelevare dati da un DB
+    @GetMapping
     public List<Person> selectAll(){
         return personService.selectAll();
     }
+    @GetMapping(path = "{id}")
+    public Person getPersonById(@PathVariable("id") UUID id){         //pathvariable: chiedo alla pagina di "darmi" un nome
+        return personService.getPersonByID(id);
+    }
 
-    @RequestMapping("/ciao")
-    @GetMapping
-    public Person getPerson(@RequestParam(value = "name") String name){         //requestparam: chiedo alla pagina di "darmi" un nome con la scrittura """?name=nome
-        return personService.getPerson(name);
+    @DeleteMapping(path = "{id}")
+    public void deletePersonByID(@PathVariable("id") UUID id){          //funzione che implementa la richiesta di eliminare un untente passandogli il suo ID
+        personService.deletePersonByID(id);
     }
 }

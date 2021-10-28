@@ -16,6 +16,6 @@ public interface PersonDAO {
     }
     List<Person> getAll();
 
-    Person deletePerson(UUID id);
-    Person getPerson(String name);              //dato un ID, cerca nel DB un utente con questo ID
+    void deletePersonByID(UUID id);
+    Person getPersonByID(UUID id);              //dato un ID, cerca nel DB un utente con questo ID
 }

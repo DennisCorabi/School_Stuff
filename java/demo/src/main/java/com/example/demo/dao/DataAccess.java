@@ -24,16 +24,16 @@ public class DataAccess implements PersonDAO{             //utilizza le "funzion
     }
 
     @Override
-    public Person deletePerson(UUID id) {
-        return null;
+    public void deletePersonByID(UUID id) {         //elimino un utente dato un ID. Usufruisco della funzione ricerca
+        DB.remove(getPersonByID(id));
     }
 
     @Override
-    public Person getPerson(String name) {              //dato il nome, ritorno la persona ricercata
+    public Person getPersonByID(UUID id) {              //dato il nome, ritorno la persona ricercata
         for (Person person: DB){
-            if (name.equals(person.getName()))              //TODO
+            if (id.equals(person.getId()))
                 return person;
         }
-        return new Person(null,"tento");
+        return null;
     }
 }
