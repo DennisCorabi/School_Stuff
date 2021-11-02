@@ -10,7 +10,7 @@ int isprime(int num);
 int leggiFile();
 
 int main(int argc, char **argv){
-	int ncpu, fine,status,blocco;
+	int ncpu, fine,blocco, status;	
 	pid_t stat,pid;
 	FILE *sommo;
 	sommo = fopen("blocco.txt","w");		//se esiste il file, lo elimino e ricreo (A.K.A. lo apre in modalità scrittura)
@@ -26,7 +26,7 @@ int main(int argc, char **argv){
 	for (int i=0;i<ncpu;i++){
 		pid = fork();				//creo un nuovo processo 
 		if (pid==0)
-			return figli(blocco*i,blocco*(i+1));	//ogni figlio chiamerà SOLO questa funzione, senza creare a loro volta altri figli.
+			return figli(blocco*i,blocco*(i+1)-1);	//ogni figlio chiamerà SOLO questa funzione, senza creare a loro volta altri figli.
 	}
 	
 	for (int i=0;i<ncpu;i++){
@@ -67,7 +67,7 @@ int isprime(int num)
 }
 
 int leggiFile(){
-	FILE * sommo;
+	FILE *sommo;
 	char riga[N];
 	int cont=0;
 	sommo = fopen("blocco.txt","r");
