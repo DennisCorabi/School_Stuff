@@ -33,4 +33,8 @@ public class PersonService {
     public void deletePersonByID(UUID id){
         personDAO.deletePersonByID(id);
     }
+
+    public void setPersonByID(UUID id,String nome){
+        personDAO.setPersonByID(id, nome);
+    }
 }

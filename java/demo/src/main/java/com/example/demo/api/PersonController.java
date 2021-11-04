@@ -39,4 +39,9 @@ public class PersonController {                     //person controller
     public void deletePersonByID(@PathVariable("id") UUID id){          //funzione che implementa la richiesta di eliminare un untente passandogli il suo ID
         personService.deletePersonByID(id);
     }
+
+    @PutMapping(path="{id}")
+    public void setPersonByID(@PathVariable("id") UUID id, @RequestParam(value = "name") String nome){
+        personService.setPersonByID(id,nome);
+    }
 }

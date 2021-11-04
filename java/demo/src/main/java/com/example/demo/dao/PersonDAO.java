@@ -18,4 +18,5 @@ public interface PersonDAO {
 
     void deletePersonByID(UUID id);
     Person getPersonByID(UUID id);              //dato un ID, cerca nel DB un utente con questo ID
+    void setPersonByID(UUID id, String nome);
 }
