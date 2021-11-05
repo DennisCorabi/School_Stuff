@@ -1,15 +1,21 @@
 package com.company.person;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
     private int eta;
     private String nome;
-    private Date birthdate = new Date();
+    private final Date birthdate;
 
-    public Person(int eta, String nome){
+    public Person(int eta, String nome, String birthdate) throws Exception {
         this.eta =eta;
         this.nome= nome;
+        this.birthdate = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate); //conversione di una stringa in una data con la formattazione dd/mm/yyyy
+
     }
 
     public int getEta() {
@@ -26,5 +32,14 @@ public class Person {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public JsonObject getJson(){                //conversione di tutto l'oggetto in una stringa in formato JSON
+        Gson jsonconverter =  new Gson();
+        return jsonconverter.toJsonTree(this).getAsJsonObject();      //dove 'this' sta per l'oggetto che chiama la classe
     }
 }

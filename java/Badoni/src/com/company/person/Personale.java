@@ -1,16 +1,19 @@
 package com.company.person;
 
+import java.util.Random;
+
 public class Personale extends Person{
 
 
-    private long reddito;
+    private int reddito;
     private String ruolo;
 
-    public Personale(int eta, String nome) {
-        super(eta, nome);
+    public Personale(int eta, String nome, String birthdate) throws Exception {
+        super(eta, nome, birthdate);
+        this.reddito = new Random().nextInt(5000);      //Setto un reddito casuale tra 0 e 5000
     }
 
-    public void setReddito(long reddito) {
+    public void setReddito(int reddito) {
         this.reddito = reddito;
     }
 
@@ -18,7 +21,7 @@ public class Personale extends Person{
         this.ruolo = ruolo;
     }
 
-    public long getReddito() {
+    public double getReddito() {
         return reddito;
     }
 
