@@ -5,7 +5,7 @@ import com.company.person.Student;
 import java.util.Vector;
 
 public class Classi {
-    private Vector<Student> alunni;
+    private final Vector<Student> alunni = new Vector<>();
     private final String articolazione;
     private final Integer anno;
     private final Character sezione;
@@ -17,7 +17,14 @@ public class Classi {
     }
 
     public void addStudent(Student student){
-        alunni.add(student);
+        this.alunni.add(student);
+    }
+
+    public void rmStudent(Student student){
+        if (alunni.contains(student))
+            this.alunni.remove(student);
+        else
+            System.out.println("Studente non appartenente alla classe specificata.");
     }
 
     public Vector<Student> getAlunni() {
