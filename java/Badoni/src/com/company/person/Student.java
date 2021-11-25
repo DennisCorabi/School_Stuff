@@ -25,11 +25,16 @@ public class Student extends Person {
     }
 
     public void setClasse(Classi classe) {              //inserisco lo studente nella classe scelta, che può cambiare
+        //TODO ELIMINARE LO STUDENTE CHE CAMBIA CLASSE DALLA SUA CLASSE VECCHIA
         this.classe = classe;
         classe.addStudent(this);
     }
 
     public UUID getMatricola() {
         return matricola;
+    }
+
+    public Classi getClasse() {
+        return classe;
     }
 }

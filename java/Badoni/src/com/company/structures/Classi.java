@@ -17,7 +17,14 @@ public class Classi {
     }
 
     public void addStudent(Student student){
-        alunni.add(student);
+        this.alunni.add(student);
+    }
+
+    public void rmStudent(Student student){
+        if (alunni.contains(student))
+            this.alunni.remove(student);
+        else
+            System.out.println("Studente non appartenente alla classe specificata.");
     }
 
     public Vector<Student> getAlunni() {
