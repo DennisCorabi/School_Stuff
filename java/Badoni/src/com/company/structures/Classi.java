@@ -5,12 +5,12 @@ import com.company.person.Student;
 import java.util.Vector;
 
 public class Classi {
-    private Vector<Student> alunni;
+    private final Vector<Student> alunni = new Vector<>();
     private final String articolazione;
     private final Integer anno;
     private final Character sezione;
 
-    public Classi(Integer anno, Character sezione, String articolazione){
+    public Classi(Integer anno, Character sezione, String articolazione) throws Exception{
         this.anno = anno;
         this.sezione = Character.toUpperCase(sezione);          //la lettera della classe in maiuscolo 'toUpperCase'
         this.articolazione = articolazione;
