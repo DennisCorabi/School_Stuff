@@ -2,32 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="App.js"></script>
+    <title>Demo</title>
+    <link rel=stylesheet href="style.css">
 </head>
 <body>
+    <script src="Jquery.js" defer></script>
+    <script src="App.js" defer></script>
 
-    <div class="body">
-        <button class="button", onclick="request()">Click here!</button>
+    <div>
+        <label class="text">Inserisci il numero: </label>
+        <input id="form">
     </div>
 
-    <div class="body">
-        <table border="1px">
-            <tr>
-                <td>
-                    <select class="selectBox">
-                        <option value="0">tipologia di richiesta</option>
-                        <option value="GET">GET</option>
-                        <option value="POST">POST</option>
-                    </select>
-                </td>
-                <td>
-                    <textarea></textarea> 
-                </td>
-            </tr>
-        </table>
+    <div class="buttons">
+        <button id="searchBT">Prova</button>
+        <button id="newGame">Genera nuovo numero</button>
     </div>
 
+    <div class="buttons">
+        <p id="responses">numeri inseriti: </p>
+        <p id="counter">tentativi rimanenti: </p>
+    </div>
 </body>
 </html>

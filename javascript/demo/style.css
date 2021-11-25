@@ -1,38 +1,9 @@
-body{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+.text {
+    font-family: "Fira Code"
 }
 
-.body{
-    height: 100px;
-    width: 70%;
-    border: 1px solid #707070;
-    border-collapse: collapse;
-    display: table;
-}
-
-.button {
-    background-color: #BFFFFD;
-    border: 1px solid #707070;
-    color: #17324D;
-    width: 145px;
-    height: 35px;
-    padding: 20px;
-    text-align: center;
-    border-radius: 100px;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-}
-
-.selectBox {
-    width: 200px;
-    color: black;
-    background-color:beige;
-    height: 50;
-    border: 1px;
-    text-align: center;
-    border-radius: 1px;
-
+.buttons{
+    
+    border: black;
+    padding-top: 20px;
 }
