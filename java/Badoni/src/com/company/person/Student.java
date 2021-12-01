@@ -1,13 +1,14 @@
 package com.company.person;
 
 import com.company.structures.Classi;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class Student extends Person {
+public class Student extends Person{
 
     private final UUID matricola;
-    private Classi classe;
+    private Classi classe = null;
 
     public Student(int eta, String nome, String birthdate, Classi classe) throws Exception {
         super(eta, nome, birthdate);
@@ -16,16 +17,17 @@ public class Student extends Person {
 
     }
 
-    //altra dichiarazione di uno studente senza classe
+    //altra dichiarazione di uno studente: questa volta senza dichiarare una classe di appartenenza.
     public Student(int eta, String nome, String birthdate) throws Exception {
         super(eta, nome, birthdate);
         this.matricola = UUID.randomUUID();
-        setClasse(classe);
 
     }
 
-    public void setClasse(Classi classe) {              //inserisco lo studente nella classe scelta, che può cambiare
-        //TODO ELIMINARE LO STUDENTE CHE CAMBIA CLASSE DALLA SUA CLASSE VECCHIA
+    public void setClasse(@NotNull Classi classe) {              //inserisco lo studente nella classe scelta, che può cambiare
+        if (this.classe!=null)
+            this.getClasse().removeStudent(this);
+
         this.classe = classe;
         classe.addStudent(this);
     }

@@ -1,6 +1,7 @@
 package com.company.structures;
 
 import com.company.person.Student;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Vector;
 
@@ -20,10 +21,11 @@ public class Classi {
         this.alunni.add(student);
     }
 
-    public void rmStudent(Student student){
-        if (alunni.contains(student))
+    public void removeStudent(@NotNull Student student){
+        if (alunni.contains(student)) {
             this.alunni.remove(student);
-        else
+        }
+            else
             System.out.println("Studente non appartenente alla classe specificata.");
     }
 
@@ -42,4 +44,5 @@ public class Classi {
     public Character getSezione() {
         return sezione;
     }
+
 }

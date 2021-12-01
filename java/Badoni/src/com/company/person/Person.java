@@ -37,9 +37,4 @@ public class Person {
     public Date getBirthdate() {
         return birthdate;
     }
-
-    public JsonObject getJson(){                //conversione di tutto l'oggetto in una stringa in formato JSON
-        Gson jsonconverter =  new Gson();
-        return jsonconverter.toJsonTree(this).getAsJsonObject();      //dove 'this' sta per l'oggetto che chiama la classe
-    }
 }
