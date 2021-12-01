@@ -3,7 +3,6 @@ import random
 import datetime
 from tkinter import *
 from typing import Collection, Counter
-
 from tkinter import messagebox
 from tkinter import filedialog
 import sqlite3
