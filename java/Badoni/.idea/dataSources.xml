@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="5f7858f1-3fe0-4412-bb60-38af273ed28f">
-      <driver-ref>oracle.19</driver-ref>
+    <data-source source="LOCAL" name="MySQL - helloSQL@localhost" uuid="3d528310-2cb6-464e-abb0-1c74e2c4d748">
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <auto-commit>false</auto-commit>
-      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@localhost:1521:XE</jdbc-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/helloSQL</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
