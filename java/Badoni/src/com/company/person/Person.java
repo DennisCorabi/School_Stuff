@@ -7,18 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
-    private int eta;
+    private Integer eta;
     private String nome;
     private final Date birthdate;
 
-    public Person(int eta, String nome, String birthdate) throws Exception {
+    public Person(Integer eta, String nome, String birthdate) throws Exception {
         this.eta =eta;
         this.nome= nome;
         this.birthdate = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate); //conversione di una stringa in una data con la formattazione dd/mm/yyyy
 
     }
 
-    public int getEta() {
+    public Integer getEta() {
         return eta;
     }
 
