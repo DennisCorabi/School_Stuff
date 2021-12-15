@@ -1,12 +1,12 @@
 package com.company.structures;
 
-import com.company.person.Student;
+import com.company.person.Studenti;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Vector;
 
 public class Classi {
-    private final Vector<Student> alunni = new Vector<>();
+    private final Vector<Studenti> alunni = new Vector<>();
     private final String articolazione;
     private final Integer anno;
     private final Character sezione;
@@ -17,11 +17,11 @@ public class Classi {
         this.articolazione = articolazione;
     }
 
-    public void addStudent(Student student){
+    public void addStudent(Studenti student){
         this.alunni.add(student);
     }
 
-    public void removeStudent(@NotNull Student student){
+    public void removeStudent(@NotNull Studenti student){
         if (alunni.contains(student)) {
             this.alunni.remove(student);
         }
@@ -29,7 +29,7 @@ public class Classi {
             System.out.println("Studente non appartenente alla classe specificata.");
     }
 
-    public Vector<Student> getAlunni() {
+    public Vector<Studenti> getAlunni() {
         return alunni;
     }
 

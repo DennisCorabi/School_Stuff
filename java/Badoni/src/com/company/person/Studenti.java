@@ -5,12 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class Student extends Person{
+public class Studenti extends Person{
 
     private final UUID matricola;
     private Classi classe = null;
 
-    public Student(int eta, String nome, String birthdate, Classi classe) throws Exception {
+    public Studenti(int eta, String nome, String birthdate, Classi classe) throws Exception {
         super(eta, nome, birthdate);
         this.matricola = UUID.randomUUID();         //matricola identificativa per ogni singolo utente generata a random
         setClasse(classe);
@@ -18,7 +18,7 @@ public class Student extends Person{
     }
 
     //altra dichiarazione di uno studente: questa volta senza dichiarare una classe di appartenenza.
-    public Student(int eta, String nome, String birthdate) throws Exception {
+    public Studenti(int eta, String nome, String birthdate) throws Exception {
         super(eta, nome, birthdate);
         this.matricola = UUID.randomUUID();
 
