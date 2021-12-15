@@ -12,9 +12,7 @@ Strumento utilissimo per manipolari database di qualunque tipo (basta cambiare l
 senza dover scrivere nessun comando in SQL.
 //TODO RICORDARE
  */
-public interface Repository extends CrudRepository<Student, Long> {
-    List<Student> findStudentByName(String name);
-
+public interface UserDBaccess extends CrudRepository<Student, Long> {
     List<Student> findAll();
 
     Student getStudentById(Long id);

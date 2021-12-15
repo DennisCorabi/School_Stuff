@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity         //trasforma l'oggetto in una tabella
-@Table          //li inserisce in una tabella (nome di default della tabella = nome della classe)
+@Table(name = "Studenti")      //li inserisce in una tabella (nome di default della tabella = nome della classe)
 public class  Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,8 @@
 package com.example.demo.Service;
 
-import com.example.demo.DataAccess.Repository;
+import com.example.demo.DataAccess.ClassDBaccess;
+import com.example.demo.DataAccess.UserDBaccess;
+import com.example.demo.Model.Classi;
 import com.example.demo.Model.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +18,30 @@ la parte di interfacciamento con l'utente (API) verrà gestita direttamente dal 
  */
 @Service
 public class StudentService {
-    //creo una istanza del mio data Access
-    Repository mysqlrepo;
+    //creo una istanza del mio data Access per utenti e classi
+    UserDBaccess mysqlUserAccess;
+    ClassDBaccess mysqlClassAccess;
 
     @Autowired
-    public StudentService(Repository repository){
-        this.mysqlrepo = repository;
-    }
-
-
-    public List<Student> getAllStudents(){
-        return mysqlrepo.findAll();
+    public StudentService(UserDBaccess userDBaccess, ClassDBaccess classDBaccess){
+        this.mysqlUserAccess = userDBaccess;
+        this.mysqlClassAccess = classDBaccess;
     }
 
     public void insertStudent(Student student){
-        mysqlrepo.save(student);
+        mysqlUserAccess.save(student);
     }
 
     public Student getStudentById(Long id){
-        return mysqlrepo.getStudentById(id);
+        return mysqlUserAccess.getStudentById(id);
     }
 
-    public void setStudentName(long oldId, String nome){
-        Student student = mysqlrepo.getStudentById(oldId);
-        student.setName(nome);
-        mysqlrepo.save(student);
+    public Classi getClasse(Classi classe){
+        return mysqlClassAccess.getClassiByAnnoAndSezioneAndArticolazione(classe.getAnno(), classe.getSezione(), classe.getArticolazione());
     }
 
+    public void setClasse(Classi classe){
+        mysqlClassAccess.save(classe);
+    }
 
 }
