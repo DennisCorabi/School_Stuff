@@ -21,12 +21,16 @@ public class Classi {
         this.alunni.add(student);
     }
 
-    public void removeStudent(@NotNull Studenti student){
+    public void removeStudent(Studenti student){
         if (alunni.contains(student)) {
             this.alunni.remove(student);
         }
-            else
+        else
             System.out.println("Studente non appartenente alla classe specificata.");
+    }
+
+    public String getClasse(){
+        return String.format(anno+" "+sezione+" "+articolazione);
     }
 
     public Vector<Studenti> getAlunni() {

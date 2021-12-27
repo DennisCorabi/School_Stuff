@@ -5,27 +5,20 @@ import java.util.Random;
 public class Personale extends Person{
 
 
-    private int reddito;
-    private String ruolo;
+    private double stipendio;
 
-    public Personale(int eta, String nome, String birthdate) throws Exception {
-        super(eta, nome, birthdate);
-        this.reddito = new Random().nextInt(5000);      //Setto un reddito casuale tra 0 e 5000
+    public Personale(String nome,String cognome, String birthdate) throws Exception {
+        super(nome,cognome, birthdate);
+        this.stipendio = new Random().nextInt(5000);      //Setto un reddito casuale tra 0 e 5000
     }
 
     public void setReddito(int reddito) {
-        this.reddito = reddito;
+        this.stipendio = reddito;
     }
 
-    public void setRuolo(String ruolo) {
-        this.ruolo = ruolo;
-    }
 
     public double getReddito() {
-        return reddito;
+        return stipendio;
     }
 
-    public String getRuolo() {
-        return ruolo;
-    }
 }

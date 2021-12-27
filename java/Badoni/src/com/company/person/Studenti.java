@@ -10,25 +10,26 @@ public class Studenti extends Person{
     private final UUID matricola;
     private Classi classe = null;
 
-    public Studenti(int eta, String nome, String birthdate, Classi classe) throws Exception {
-        super(eta, nome, birthdate);
+    public Studenti(String nome, String cognome, String birthdate, Classi classe) throws Exception {
+        super(nome,cognome, birthdate);
         this.matricola = UUID.randomUUID();         //matricola identificativa per ogni singolo utente generata a random
         setClasse(classe);
 
     }
 
     //altra dichiarazione di uno studente: questa volta senza dichiarare una classe di appartenenza.
-    public Studenti(int eta, String nome, String birthdate) throws Exception {
-        super(eta, nome, birthdate);
+    public Studenti(String nome, String cognome,String birthdate) throws Exception {
+        super(nome,cognome,birthdate);
         this.matricola = UUID.randomUUID();
 
     }
 
-    public void setClasse(@NotNull Classi classe) {              //inserisco lo studente nella classe scelta, che può cambiare
-        if (this.classe!=null)
+    //inserisco lo studente nella classe scelta, che può cambiare
+    public void setClasse(Classi classe) {
+        if (this.classe!=null)                                  //se lo studente già apparteneva ad una classe, lo tolgo dalla classe
             this.getClasse().removeStudent(this);
 
-        this.classe = classe;
+        this.classe = classe;                                  //lo aggiungo alla nuova classe
         classe.addStudent(this);
     }
 
@@ -39,4 +40,6 @@ public class Studenti extends Person{
     public Classi getClasse() {
         return classe;
     }
+
+
 }
