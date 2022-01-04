@@ -16,12 +16,16 @@ public class Main {
         System.out.println(virginio.getMateria());
         System.out.println(antonio.getStipendio()+"€");
 
-        Studenti studente1 = new Studenti("dennis","corabi","28/12/2004",classe1);
+        Studenti studente1 = new Studenti("Dennis","corabi","28/12/2004",classe1);
         Studenti studente2 = new Studenti("Federico","Zotti","26/01/2004",classe1);
 
-        for (Studenti studenti:classe1.getAlunni()){
-            System.out.println(studenti.getEta());
+        for (Studenti studente: classe1.getAlunni()){
+            System.out.println(studente.getNome());
         }
+        studente1.setClasse(classe2);
+        studente2.setClasse(classe2);
 
+        System.out.println(classe1.getAlunni());
+        System.out.println(classe2.getAlunni());
     }
 }

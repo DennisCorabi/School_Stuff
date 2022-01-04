@@ -55,4 +55,6 @@ public class Personale extends Person{
         return stipendio;
     }
 
+
+
 }

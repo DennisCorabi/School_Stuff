@@ -20,14 +20,14 @@ public class Classi {
 
     //metodo per aggiungere studenti alla classe
     public void addStudent(Studenti student){
-        this.alunni.add(student);
+        alunni.add(student);
     }
     /*
     Metodo per rimuovere studenti dalla classe. Prima di effettuare la rimozione, devo controllare se lo studente passato come parametro si trovi all'interno della classe.
      */
     public void removeStudent(Studenti student){
         if (alunni.contains(student)) {
-            this.alunni.remove(student);
+            alunni.remove(student);
         }
         else
             System.out.println("Studente non appartenente alla classe specificata.");       //se lo studente non fosse presente, allora informo l'utente dell'errore.
