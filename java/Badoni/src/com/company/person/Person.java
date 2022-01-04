@@ -30,7 +30,7 @@ public class Person {
     Metodo setAge:
     Dato il parametro "birthdate", calcolo l'etò della persona facendo la differenza tra la data di nascita e l'istante nel quale si inizializza l'oggetto.
     Prima converto la data di nascita in millisecondi trascorsi dallo unix epoch, definisco il fuso orario e poi effettuo il casting da tipo "Instant" a "LocalDate"
-    Calcolo la differenza fra le due date ed infine prelevo solamente gli anni di differenza.
+    Calcolo la differenza fra le due date e infine prelevo solamente gli anni di differenza.
      */
     private Integer setAge(){
         LocalDate bday = Instant.ofEpochMilli(birthdate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
