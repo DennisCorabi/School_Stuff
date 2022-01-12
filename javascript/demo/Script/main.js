@@ -3,7 +3,7 @@ window.onload=function(){
     localStorage.setItem("name",prompt("inserisci il tuo nome"));
     const name=localStorage.getItem("name");
 
-    title=document.querySelector("h1");
+    title=document.getElementById("title");
     title.innerText=title.innerText+" (hello "+name+",too!)";
 }
 
@@ -27,11 +27,11 @@ function changeImg(){
     }
 }
 
-
 image.onclick=function(){
     imageclicks++;
-    if (imageclicks===3)
+    if (imageclicks===localStorage.getItem("name").length)
     {     let amongus=document.getElementById("amongus-describe");
+
         image.setAttribute("src","https://i.kym-cdn.com/photos/images/newsfeed/002/111/324/976.gif");
         amongus.innerHTML=amongus.innerHTML+"<h1>Easter egg!!</h1>";
     }
@@ -43,3 +43,4 @@ text.onclick=function(){
     const lista=["amongus","sumoga","amonga","coronga","A","Sugoma","Amogus","Amoamogus"];
     lista.splice(lista.indexOf(document.getElementById("amongus-text")));
 }
+
