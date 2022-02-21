@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.eserciziojavafx.MainController">
+   <Label layoutX="27.0" layoutY="14.0" prefHeight="26.0" prefWidth="107.0" text="Rubrica">
+      <font>
+         <Font size="25.0"/>
+      </font>
+   </Label>
+   <Label layoutX="27.0" layoutY="71.0" prefHeight="36.0" prefWidth="80.0" text="Nome"/>
+   <Label layoutX="27.0" layoutY="143.0" prefHeight="36.0" prefWidth="80.0" text="Telefono"/>
+   <Label layoutX="27.0" layoutY="107.0" prefHeight="36.0" prefWidth="80.0" text="Cognome"/>
+   <TextField fx:id="fieldNome" layoutX="107.0" layoutY="77.0" promptText="Inserisci il nome"/>
+   <TextField fx:id="fieldCognome" layoutX="107.0" layoutY="113.0" promptText="Inserisci il cognome"/>
+   <TextField fx:id="fieldTelefono" layoutX="107.0" layoutY="149.0" promptText="Numero di telefono"/>
+   <TextArea fx:id="registerArea" layoutX="300.0" layoutY="27.0" prefHeight="315.0" prefWidth="267.0"
+             promptText="I tuoi contatti verranno visualizzati qui"/>
+   <Button fx:id="submitButton" layoutX="41.0" layoutY="200.0" mnemonicParsing="false" onAction="#Submit"
+           prefHeight="25.0" prefWidth="80.0" text="Aggiungi"/>
+   <Button fx:id="clearButton" layoutX="160.0" layoutY="200.0" mnemonicParsing="false" onAction="#ClearFields"
+           prefHeight="25.0" prefWidth="80.0" text="Pulisci"/>
+   <Button fx:id="getAllPeopleButton" layoutX="36.0" layoutY="282.0" mnemonicParsing="false" onAction="#getAllPeole"
+           prefHeight="25.0" prefWidth="207.0" text="Visualizza tutti i contatti"/>
+   <Button fx:id="deleteButton" layoutX="100.0" layoutY="243.0" mnemonicParsing="false" prefHeight="25.0"
+           prefWidth="80.0" text="Rimuovi"/>
+</AnchorPane>
