@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj": {}
+    "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj": {
+    "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj",
+        "projectUniqueName": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj",
         "projectName": "CRC",
-        "projectPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj",
-        "packagesPath": "C:\\Users\\denni\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\CRC\\CRC\\obj\\",
+        "projectPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\CRC\\CRC\\CRC.csproj",
+        "packagesPath": "C:\\Users\\nadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\CRC\\CRC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\denni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

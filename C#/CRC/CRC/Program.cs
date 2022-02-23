@@ -3,34 +3,48 @@
 
 void initialize()
 {
-    string BitSequence = "1011010";
-    string Divisore = FillWithZeros(BitSequence.Length, "1001");
-    Console.WriteLine($"Dividendo: {BitSequence}\t Divisore: {Divisore}");
-    Division(BitSequence, Divisore);
+    string BitSeq1 = "01011010011010010000";
+    string BitSeq2 = "11011";
+    //BitSeq2 = FillWithZeros(BitSeq1.Length, BitSeq2);
+
+    Division(BitSeq1, BitSeq2);
 }
 
 void Division(string dividendo, string divisore)
 {
-    char[] quoziente;
-    if (dividendo.Length != divisore.Length)
+    string quoziente = "";
+    if (divisore.Length > dividendo.Length)
         return;
 
-    for (int i=0; i<dividendo.Length; i++)
-    {
-        char x = (char) (dividendo[i] + divisore[i] );
-        if (x == 2) x = '0';
 
-        quoziente[i] = x;
+  
+    string untouched = dividendo.Substring(divisore.Length);
+    string touched = dividendo.Substring(0, divisore.Length);
+
+    Console.Write($"\nDividendo: {touched}\t Divisore: {divisore}\t\t");
+    for (int i = 0; i < divisore.Length; i++)
+    {
+
+        char c = (char)(dividendo[i] ^ divisore[i]);
+        c += '0';
+        quoziente += c;
     }
 
-    Console.WriteLine(quoziente);
-   
-}
+    quoziente += untouched;
 
-string FillWithZeros(int lenght, string bitSeq)
-{
-    while (bitSeq.Length != lenght) bitSeq += "0";
-    return bitSeq;
-}
 
+    var newstring = quoziente.Substring(quoziente.IndexOf('1'));
+    Console.WriteLine($"Risultato: {quoziente} ({newstring})");
+
+    Division(quoziente.Substring(quoziente.IndexOf('1')), divisore);
+
+}
 initialize();
+
+
+
+/*
+ * Programma che per ora funziona solo con certi frame.
+ * I problemi di questo programma per ora sono: 
+ * - problema con gli zeri alla fine dell'esercizio (non trova un uno e perciò crea un'eccezione) 
+ */
