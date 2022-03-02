@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covidfx.MainController">
+   <children>
+      <TableView fx:id="table" layoutX="48.0" layoutY="71.0" prefHeight="329.0" prefWidth="618.0">
+         <columns>
+            <TableColumn fx:id="DataColumn" prefWidth="75.0" text="Data" />
+            <TableColumn fx:id="RicoveratiColumn" prefWidth="75.0" text="Ricoverati" />
+            <TableColumn fx:id="TerapiaIntensivaColumn" prefWidth="109.0" text="Terapia Intensiva" />
+            <TableColumn fx:id="PositiviTotaliColumn" prefWidth="93.0" text="Positivi totali" />
+            <TableColumn fx:id="PositiviNuoviColumn" prefWidth="100.0" text="Nuovi positivi" />
+            <TableColumn fx:id="MortiTotaliColumn" prefWidth="82.0" text="Morti totali" />
+            <TableColumn fx:id="TamponiTotaliColumn" prefWidth="82.0" text="Tamponi" />
+         </columns>
+      </TableView>
+      <Label layoutX="48.0" layoutY="20.0" prefHeight="43.0" prefWidth="229.0" text="ANDAMENTO NAZIONALE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="LatestUpdate" layoutX="369.0" layoutY="24.0" prefHeight="35.0" prefWidth="201.0" text="LatestUpdate" />
+      <Button layoutX="580.0" layoutY="29.0" mnemonicParsing="false" onAction="#insertData" text="Aggiorna" />
+      <Button layoutX="209.0" layoutY="423.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cerca" />
+      <TextField fx:id="SearchForDay" alignment="TOP_LEFT" layoutX="48.0" layoutY="423.0" promptText="cerca per giornata" />
+   </children>
+</AnchorPane>
