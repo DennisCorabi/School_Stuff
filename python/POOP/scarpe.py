@@ -9,7 +9,6 @@ class Scarpa:
         self.modello=modello
         magazzino.inventario_scarpe.append(self)
 
-
         conn=sqlite3.connect("scarpe.db")
         cursor=conn.cursor()
         command="INSERT INTO {} VALUES(\"{}\",\"{}\",{})".format(magazzino.nome,self.marca,self.modello,self.taglia)
@@ -17,7 +16,7 @@ class Scarpa:
         cursor.execute(command)
         conn.commit()
         conn.close()
-        
+
 class Magazzino:
     def __init__(self,nome,capienza):
         self.nome=nome
@@ -35,7 +34,7 @@ def add_scarpa():
     form_modello.delete(0,END)
     form_taglia.delete(0,END)
 """
-def delete_window(oid_list): 
+def delete_window(oid_list):
 
     conn=sqlite3.connect("scarpe.db")
     cursor=conn.cursor()
@@ -56,9 +55,9 @@ def delete_window(oid_list):
 
     submit_bt=Button(frame,text="Invia...").grid(row=cont+1,column="0",padx="5",pady="5")
     #RIUSCIRE A FAR TORNARE IL VALORE DELLA SCELTA
-    
+
         #TODOs
-"""        
+"""
 def delete_scarpa():
     conn=sqlite3.connect("scarpe.db")
     cursor=conn.cursor()
@@ -72,7 +71,7 @@ def delete_scarpa():
     else:
         #RISOLVERE IL CONFLITTO SU CHE SCARPA ELIMINARE
         pass
-            
+
     colonne=("marca","modello","taglia")
     for element in colonne:
         command="UPDATE {} SET {}=NULL WHERE oid={}".format(magazzino.nome,element,oid)
@@ -80,8 +79,8 @@ def delete_scarpa():
 
     conn.commit()
     conn.close()
-    
-    
+
+
 
 """
 CREA UN NUOVO MAGAZZINO (ovvero uno oggetto della classe 'Magazzino'
@@ -103,7 +102,7 @@ def create():
     view_bt=Button(root,text="Visualizza database").grid(row="1",column="0",padx="5",pady="5")
 
     view_magazzino()
-    
+
 def fetch_tables():
     global lista
     conn=sqlite3.connect("scarpe.db")
@@ -139,7 +138,7 @@ def view_magazzino(finestra):
 def new_window():
     window=Toplevel()
     view_magazzino(window)
-"""   
+"""
 #GUI
 FRONT-END DEL PROGRAMMA.
 
@@ -150,7 +149,7 @@ IN ORDINE:
         -INSERIMENTO MODELLO: label & entry
         -INSERIMENTO TAGLIA: label & entry
         -SUBMIT BUTTON: per inserire la nuova scarpa nel database
-        
+
     -CREAZIONE NUOVO MAGAZZINO: frame_add, label, entry & submit button
 """
 root=Tk()
