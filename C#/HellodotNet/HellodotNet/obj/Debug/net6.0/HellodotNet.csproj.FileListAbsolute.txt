@@ -1,0 +1,17 @@
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\HellodotNet.exe
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\HellodotNet.deps.json
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\HellodotNet.runtimeconfig.json
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\HellodotNet.dll
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\ref\HellodotNet.dll
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\HellodotNet.pdb
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.csproj.AssemblyReference.cache
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.AssemblyInfoInputs.cache
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.AssemblyInfo.cs
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.csproj.CoreCompileInputs.cache
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.dll
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\ref\HellodotNet.dll
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.pdb
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.genruntimeconfig.cache
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\nadir\OneDrive\Desktop\Dennis\school_stuff\C#\HellodotNet\HellodotNet\obj\Debug\net6.0\HellodotNet.csproj.CopyComplete

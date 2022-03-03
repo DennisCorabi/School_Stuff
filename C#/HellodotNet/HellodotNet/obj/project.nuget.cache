@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HvqEsQd2mUzPk0jlhioJNAxYVda4mZn14o+1uSDVDfBVKkS09IMXDz5Z9sQpWRKML4ppu+9n6rp19LedmR9+xw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\HellodotNet\\HellodotNet\\HellodotNet.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nadir\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

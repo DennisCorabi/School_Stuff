@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "380f5dd6-179d-401b-ba41-b39f717c9eda": {
+      "ProjectGuid": "380f5dd6-179d-401b-ba41-b39f717c9eda",
+      "DisplayName": "HelloAsp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -1,11 +1,13 @@
+package Model;
+
 public class DayLog {
-    private String data;
-    private int ricoveratiConSintomi;
-    private int terapiaIntensivaTotali;
-    private int positiviCorrenti;
-    private int positiviOggi;
-    private int decedutiTotali;
-    private int tamponiTotali;
+    private final String data;
+    private final int ricoveratiConSintomi;
+    private final int terapiaIntensivaTotali;
+    private final int positiviCorrenti;
+    private final int positiviOggi;
+    private final int decedutiTotali;
+    private final int tamponiTotali;
 
     public DayLog(String data, int ricoveratiConSintomi, int terapiaIntensiva, int positiviTotali, int positiviOggi, int decedutiTotali, int tamponiTotali) {
         this.data = data;
@@ -17,9 +19,37 @@ public class DayLog {
         this.tamponiTotali = tamponiTotali;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public int getRicoveratiConSintomi() {
+        return ricoveratiConSintomi;
+    }
+
+    public int getTerapiaIntensivaTotali() {
+        return terapiaIntensivaTotali;
+    }
+
+    public int getPositiviCorrenti() {
+        return positiviCorrenti;
+    }
+
+    public int getPositiviOggi() {
+        return positiviOggi;
+    }
+
+    public int getDecedutiTotali() {
+        return decedutiTotali;
+    }
+
+    public int getTamponiTotali() {
+        return tamponiTotali;
+    }
+
     @Override
     public String toString() {
-        return "DayLog{" +
+        return "Model.DayLog{" +
                 "data='" + data + '\'' +
                 ", ricoveratiConSintomi=" + ricoveratiConSintomi +
                 ", terapiaIntensivaTotali=" + terapiaIntensivaTotali +

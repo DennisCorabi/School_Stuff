@@ -245,19 +245,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\denni\\.nuget\\packages\\": {}
+    "C:\\Users\\nadir\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\HelloAsp\\HelloAsp.csproj",
+      "projectUniqueName": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\HelloAsp\\HelloAsp.csproj",
       "projectName": "HelloAsp",
-      "projectPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\HelloAsp\\HelloAsp.csproj",
-      "packagesPath": "C:\\Users\\denni\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\HelloAsp\\obj\\",
+      "projectPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\HelloAsp\\HelloAsp.csproj",
+      "packagesPath": "C:\\Users\\nadir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\Dennis\\school_stuff\\C#\\HelloAsp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\denni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -310,7 +310,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
