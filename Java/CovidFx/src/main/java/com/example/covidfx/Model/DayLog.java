@@ -18,7 +18,6 @@ public class DayLog {
         this.decedutiTotali = decedutiTotali;
         this.tamponiTotali = tamponiTotali;
     }
-
     public String getData() {
         return data;
     }

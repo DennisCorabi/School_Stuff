@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
@@ -29,6 +30,10 @@ public class Covid {
                 return log;
 
         return null;
+    }
+
+    public static DayLog getLatestUpdate() {
+        return CovidLog.get(CovidLog.size() - 1);
     }
 
 
