@@ -37,6 +37,17 @@ public class Covid {
         return null;
     }
 
+    public static List<DayLog> searchForDays(String[] dates){
+        List<DayLog> logs = new Vector<>();
+        for (String date: dates){
+            DayLog log = searchForDay(date);
+            if (log!=null)
+                logs.add(log);
+
+        }
+        return logs;
+    }
+
     public static String getLatestUpdate() {
         DayLog latestUpdate = CovidLog.get(CovidLog.size()-1);
         DayLog theDayBefore = CovidLog.get(CovidLog.size()-2);

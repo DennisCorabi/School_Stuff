@@ -46,6 +46,8 @@ public class MainController {
     private static final String filePath = "src/main/resources/dpc-covid19-ita-andamento-nazionale.csv";            //path del file da cui si prelevano i dati
     private static final String internetFilePath = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv";        //url da dove si preleva il file
     private static final ObservableList<String> choises = FXCollections.observableList(Covid.Choises);  //serve per il menu a tendina
+    private static int counter = 0; //contiene il totale dei resoconti processati
+
 
 
     //Metodo che viene chiamato solamente quando viene aperta la finestra
@@ -85,6 +87,7 @@ public class MainController {
             table.getItems().clear();
         }
         readData();
+        System.out.println("Finished reading data from file at \"" + filePath + "\"\n");
 
         ObservableList<DayLog> dayLogs = FXCollections.observableList(Covid.getCovidLog()); //la tabella accetta solo questo formato
         table.setItems(dayLogs);
@@ -113,23 +116,21 @@ public class MainController {
         }
     }
 
-    /*Metodo Legge il file individuato dal suo percorso (filepath) e ne legge il contenuto.
-    Dopodiché, per ogni riga del file crea un oggetto che rappresenta il resoconto della singola giornata.
-    Infine, aggiunge il resoconto a una lista contente tutti i resoconti a partire dal 24 febbraio 2020.
+    /*
+    Metodo Legge il file individuato dal suo percorso (filepath) e ne legge il contenuto. Per ogni riga del file crea un oggetto che rappresenta il resoconto della singola giornata.
+    Infine, aggiunge il resoconto a una lista contenente tutti i resoconti a partire dal 24 febbraio 2020.
      */
     public void readData() throws IOException, CsvException {
 
         CSVReader reader = new CSVReader(new FileReader(filePath));        //uso la libreria OpenCSV per aprire i file con estensione .csv
         String[] content;
-        int counter = 0;
-
+        counter=0;
         while ((content = reader.readNext()) != null) {       //per ogni riga del file, chiamo la funzione.
             if (counter != 0)
                 insertDay(content);
             counter++;
         }
         reader.close();
-        System.out.println("Finished reading data from file at \"" + filePath + "\"\n");
     }
 
     /*
@@ -181,17 +182,15 @@ public class MainController {
     /*
     Metodo che mostra nella tabella solo una giornata, ricarcata tramite l'inserimento in un campo della sua data.
      */
-    public void ShowLog()  {
-        DayLog log = Covid.searchForDay(SearchForDay.getText());
-        if (log!=null) {                //se la ricerca ha dato i suoi frutti
-            table.getItems().clear();
-            table.getItems().add(log);      //elimina la tabella e inserisce una sola riga
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Non è stato trovato un resoconto giornaliero nella data specificata.\n\nN.B. ricordati di inserire la data nel formato \"yyyy/mm/dd\"");
-            alert.show();
-        }
+    public void ShowSelectedDates() throws IOException, CsvException {
+        String[] dates = SearchForDay.getText().split(", ");
+        if (table.getItems().size()!=counter)     //se ho già cercato delle date, prima ripopolo il vettore con tutti i dati
+            readData();
+
+        ObservableList<DayLog> logs = FXCollections.observableList(Covid.searchForDays(dates));
+        table.getItems().clear();
+        table.getItems().addAll(logs);      //elimina la tabella e inserisce una sola riga
+
     }
 
     /*
@@ -199,22 +198,28 @@ public class MainController {
      */
     public void SaveCSVFile() {
         FileChooser fileChooser = new FileChooser();        //apre una file di file explorer in base al sistema operativo utilizzato.
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+"/Desktop"));      //apre il file explorer sulla cartella desktop (solo su windows)
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", ".csv"));
         fileChooser.setTitle("Scegli dove vuoi salvare il file");
 
         File file = fileChooser.showSaveDialog(null);
-        try{
-            Files.copy(Path.of(filePath), Path.of(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);        //salva il file
-            System.out.println("The file has been saved in \""+file.getAbsolutePath()+"\"");
+        if (file!=null) {
+            try {
+                Files.copy(Path.of(filePath), Path.of(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);        //salva il file
+                System.out.println("The file has been saved in \"" + file.getAbsolutePath() + "\"");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Il file è stato salvato con successo.");
+                alert.show();
+            }
+            catch (NullPointerException | IOException ex){
+                System.out.println("Failed to save the file in \""+file.getAbsolutePath()+"\"");
+            }
         }
-        catch (IOException ex){
-            System.out.println("Failed to save the file in \""+file.getAbsolutePath()+"\"");
-        }
+        else
+            System.out.println("Failed to save the file");
+
 
     }
 
-    //DA RISOLVERE: SE CERCO UNA DATA SPECIFICA DOPO AVERNE CERCATA GIA' UNA, NON LA TROVA E DEVO PER FORZA RICARICARE TUTTA LA TABELLA
     //DA AGGIUNGERE: METTERE SCORCIATOIE DA TASTIERA   (facoltativo)
 
 

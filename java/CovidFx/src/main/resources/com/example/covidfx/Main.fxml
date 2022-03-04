@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covidfx.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covidfx.MainController">
    <children>
       <TableView fx:id="table" layoutX="48.0" layoutY="71.0" prefHeight="329.0" prefWidth="618.0">
          <columns>
@@ -26,7 +26,7 @@
       </Label>
       <Label fx:id="LatestUpdate" layoutX="369.0" layoutY="24.0" prefHeight="35.0" prefWidth="201.0" text="LatestUpdate" />
       <Button fx:id="UpdateTableButton" layoutX="580.0" layoutY="29.0" mnemonicParsing="false" onAction="#insertData" text="Aggiorna" />
-      <Button layoutX="209.0" layoutY="423.0" mnemonicParsing="false" onAction="#ShowLog" prefHeight="25.0" prefWidth="96.0" text="Cerca" />
+      <Button layoutX="209.0" layoutY="423.0" mnemonicParsing="false" onAction="#ShowSelectedDates" prefHeight="25.0" prefWidth="96.0" text="Cerca" />
       <TextField fx:id="SearchForDay" alignment="TOP_LEFT" layoutX="48.0" layoutY="423.0" promptText="cerca per giornata" />
       <ChoiceBox fx:id="DifferenceType" layoutX="699.0" layoutY="165.0" prefWidth="150.0" />
       <TextField fx:id="Difference1" layoutX="696.0" layoutY="97.0" prefHeight="25.0" prefWidth="156.0" promptText="Inserisci data" />
@@ -36,5 +36,6 @@
       <Label alignment="CENTER" layoutX="696.0" layoutY="71.0" prefHeight="17.0" prefWidth="156.0" text="Calcola variazione" />
       <TextArea fx:id="LatestUpdateTextArea" editable="false" layoutX="690.0" layoutY="286.0" prefHeight="162.0" prefWidth="165.0" />
       <Button layoutX="565.0" layoutY="423.0" mnemonicParsing="false" onAction="#SaveCSVFile" prefHeight="25.0" prefWidth="96.0" text="Salva dati" />
+      <Label layoutX="48.0" layoutY="458.0" prefHeight="17.0" prefWidth="420.0" text="Nota: puoi effettuare una ricerca multipla inserendo un ', ' tra due o più date" />
    </children>
 </AnchorPane>
