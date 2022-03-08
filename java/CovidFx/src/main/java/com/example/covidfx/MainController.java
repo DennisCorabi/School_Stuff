@@ -220,8 +220,4 @@ public class MainController {
 
     }
 
-    //DA AGGIUNGERE: METTERE SCORCIATOIE DA TASTIERA   (facoltativo)
-
-
-
 }
