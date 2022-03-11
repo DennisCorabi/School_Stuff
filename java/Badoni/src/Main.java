@@ -2,6 +2,7 @@ import com.company.person.Docente;
 import com.company.person.Personale;
 import com.company.person.Studenti;
 import com.company.structures.Classi;
+import com.google.gson.Gson;
 
 public class Main {
     public static void main(String[] args) throws Exception {
