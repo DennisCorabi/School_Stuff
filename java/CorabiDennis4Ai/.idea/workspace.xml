@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="18e3ba01-8ce7-4a4a-a60f-26a2a0a0c6a7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../C#/FrameManager/.vs/FrameManager/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../../C#/FrameManager/.vs/FrameManager/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContagiCovid/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CovidFx/src/main/java/com/example/covidfx/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CovidFx/src/main/java/com/example/covidfx/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CovidFx/src/main/resources/dpc-covid19-ita-andamento-nazionale.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CovidFx/src/main/resources/dpc-covid19-ita-andamento-nazionale.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CovidFx/target/classes/dpc-covid19-ita-andamento-nazionale.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CovidFx/target/classes/dpc-covid19-ita-andamento-nazionale.csv" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="23ugGDfmsOmQ2q216NBZTzlfjlJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SpringProg" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ProgrammaMoto" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="programmamoto.ProgrammaMoto" />
+      <module name="ProgrammaMoto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="programmamoto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ProgrammaMoto" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="18e3ba01-8ce7-4a4a-a60f-26a2a0a0c6a7" name="Changes" comment="" />
+      <created>1642589293377</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642589293377</updated>
+      <workItem from="1642589297519" duration="750000" />
+      <workItem from="1642761492658" duration="66000" />
+      <workItem from="1646724952596" duration="418000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
