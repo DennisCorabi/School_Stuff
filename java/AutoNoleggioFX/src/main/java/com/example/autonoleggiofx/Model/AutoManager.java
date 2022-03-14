@@ -34,7 +34,7 @@ public class AutoManager {
     public static List<Auto> getCarsByModel(String value){
         List<Auto> filteredList = new ArrayList<>();
         for (Auto auto: autoList)
-            if (Objects.equals(auto.getMarca(),value)) filteredList.add(auto);
+            if (Objects.equals(auto.getProduttore(),value)) filteredList.add(auto);
         return filteredList;
     }
 }

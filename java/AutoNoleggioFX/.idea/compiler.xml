@@ -9,8 +9,5 @@
         <module name="AutoNoleggioFX" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="AutoNoleggioFX" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

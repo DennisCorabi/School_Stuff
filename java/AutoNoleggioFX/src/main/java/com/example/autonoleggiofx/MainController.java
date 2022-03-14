@@ -6,12 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
 public class MainController {
@@ -21,7 +21,7 @@ public class MainController {
     @FXML
     TableView<Auto> carTable;
 
-    public TableColumn<Auto, Auto.Marca> MarcaColumn;
+    public TableColumn<Auto, Auto.Produttore> ProduttoreColumn;
     public TableColumn<Auto, String> ModelloColumn;
     public TableColumn<Auto, String> TargaColumn;
     public TableColumn<Auto, Float> CostoColumn;
@@ -29,15 +29,21 @@ public class MainController {
     public ChoiceBox<String> FileTypeChoiceBox;
     public ChoiceBox<String> CarModelChoiceBox;
 
+    public Label TargaValue;
+    public Label CostoValue;
+    public Label ModelloValue;
+    public Label DataValue;
+    public Label ProduttoreValue;
     @FXML
     public void initialize(){
         InitializeTable();
-        AutoManager.Add(new Auto(Auto.Marca.FIAT, "Tipo",  "20/02/2022", 15f));
-        AutoManager.Add(new Auto(Auto.Marca.FERRARI, "modello","21/02/2020", 30f));
+        AutoManager.Add(new Auto(Auto.Produttore.FIAT, "Tipo",  "20/02/2022", 15f));
+        AutoManager.Add(new Auto(Auto.Produttore.FERRARI, "modello","21/02/2020", 30f));
         InitializeChoiceBox();
         InsertData();
 
-
+        carTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> CarInspector(newValue));
     }
 
     private void InitializeChoiceBox(){
@@ -50,8 +56,9 @@ public class MainController {
         CarModelChoiceBox.setItems(carModelsObservableList);
     }
 
+
     private void InitializeTable(){
-        MarcaColumn.setCellValueFactory(new PropertyValueFactory<>("Marca"));
+        ProduttoreColumn.setCellValueFactory(new PropertyValueFactory<>("Produttore"));
         ModelloColumn.setCellValueFactory(new PropertyValueFactory<>("Modello"));
         TargaColumn.setCellValueFactory(new PropertyValueFactory<>("Targa"));
         CostoColumn.setCellValueFactory(new PropertyValueFactory<>("CostoGiornaliero"));
@@ -62,6 +69,13 @@ public class MainController {
         ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
         carTable.setItems(cars);
         System.out.println("Sono stati caricate "+AutoManager.getCounter()+" auto.");
+    }
+    private void CarInspector(Auto car){
+        ProduttoreValue.setText(car.getProduttore());
+        ModelloValue.setText(car.getModello());
+        TargaValue.setText(car.getTarga());
+        CostoValue.setText(car.getCostoGiornaliero().toString());
+        DataValue.setText(car.getDataNoleggio().toString());
     }
 
     public void saveAsButton(){

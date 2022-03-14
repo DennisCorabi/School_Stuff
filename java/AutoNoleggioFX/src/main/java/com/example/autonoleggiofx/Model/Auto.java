@@ -7,19 +7,19 @@ import java.util.Random;
 public class Auto {
     private final String targa;
     private LocalDate dataNoleggio;
-    private final Marca marca;
+    private final Produttore produttore;
     private final String modello;
     private Float costoGiornaliero;
 
-    public enum Marca{
+    public enum Produttore {
         FIAT, FERRARI, LAMBORGHINI
     }
 
 
-    public Auto(Marca marca, String modello, String dataNoleggio, Float costoGiornaliero) {
+    public Auto(Produttore produttore, String modello, String dataNoleggio, Float costoGiornaliero) {
         this.targa = generateTarga();
         this.dataNoleggio = InsertDate(dataNoleggio);
-        this.marca = marca;
+        this.produttore = produttore;
         this.modello = modello;
         this.costoGiornaliero = costoGiornaliero;
     }
@@ -32,7 +32,8 @@ public class Auto {
     public String generateTarga(){
         Random random = new Random();
         StringBuilder targa = new StringBuilder();
-        for (int i=0;i<8; i++){
+        final Integer GRANDEZZA_TARGA=8;
+        for (int i=0;i<GRANDEZZA_TARGA; i++){
             if (i<2 || i>4) targa.append((char) random.nextInt(65, 90));
             else targa.append(random.nextInt(0, 9));
         }
@@ -47,8 +48,8 @@ public class Auto {
         return dataNoleggio;
     }
 
-    public String getMarca() {
-        return marca.toString();
+    public String getProduttore() {
+        return produttore.toString();
     }
 
     public String getModello() {
@@ -64,7 +65,7 @@ public class Auto {
         return "Auto{" +
                 "targa='" + targa + '\'' +
                 ", dataNoleggio=" + dataNoleggio +
-                ", marca=" + marca +
+                ", produttore=" + produttore +
                 ", modello='" + modello + '\'' +
                 ", costoGiornaliero=" + costoGiornaliero +
                 '}';
