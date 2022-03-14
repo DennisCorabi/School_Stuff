@@ -17,6 +17,10 @@ public class AutoManager {
         autoList.add(auto);
     }
 
+    public static void Delete(Auto auto){
+        autoList.remove(auto);
+    }
+
     public static Integer getCounter() {
         return counter;
     }

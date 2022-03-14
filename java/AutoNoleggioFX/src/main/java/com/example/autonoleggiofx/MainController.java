@@ -5,14 +5,22 @@ import com.example.autonoleggiofx.Model.AutoManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainController {
 
@@ -58,11 +66,7 @@ public class MainController {
 
 
     private void InitializeTable(){
-        ProduttoreColumn.setCellValueFactory(new PropertyValueFactory<>("Produttore"));
-        ModelloColumn.setCellValueFactory(new PropertyValueFactory<>("Modello"));
-        TargaColumn.setCellValueFactory(new PropertyValueFactory<>("Targa"));
-        CostoColumn.setCellValueFactory(new PropertyValueFactory<>("CostoGiornaliero"));
-        DataColumn.setCellValueFactory(new PropertyValueFactory<>("DataNoleggio"));
+        AdminController.InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
     }
 
     private void InsertData(){
@@ -76,6 +80,17 @@ public class MainController {
         TargaValue.setText(car.getTarga());
         CostoValue.setText(car.getCostoGiornaliero().toString());
         DataValue.setText(car.getDataNoleggio().toString());
+    }
+
+    public void OpenAdmin() throws IOException {
+        Parent part = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);     //la finestra appena creata blocca tutte le altre (non si possono muovere)
+        Scene scene = new Scene(part);
+        stage.setScene(scene);
+        stage.setTitle("Pannello Amministrativo");
+        stage.show();
+
     }
 
     public void saveAsButton(){
