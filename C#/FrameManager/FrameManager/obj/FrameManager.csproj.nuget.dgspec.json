@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nadir\\OneDrive\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj": {}
+    "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nadir\\OneDrive\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj": {
+    "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nadir\\OneDrive\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj",
+        "projectUniqueName": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj",
         "projectName": "FrameManager",
-        "projectPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj",
-        "packagesPath": "C:\\Users\\nadir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nadir\\OneDrive\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\obj\\",
+        "projectPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\FrameManager.csproj",
+        "packagesPath": "C:\\Users\\denni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\denni\\OneDrive\\Backup\\Desktop\\school_stuff\\C#\\FrameManager\\FrameManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\denni\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -3,7 +3,9 @@ package com.example.autonoleggiofx.Model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 public class AutoManager {
+    private static Integer counter = 0;         //numero di auto che sono fuori dall'autonoleggio
     private static final List<Auto> autoList = new ArrayList<>();
 
 
@@ -13,6 +15,10 @@ public class AutoManager {
                 return;
             }
         autoList.add(auto);
+    }
+
+    public static Integer getCounter() {
+        return counter;
     }
 
     public static List<Auto> getAutoList() {
@@ -27,7 +33,6 @@ public class AutoManager {
 
     public static List<Auto> getCarsByModel(String value){
         List<Auto> filteredList = new ArrayList<>();
-        autoList.forEach(System.out::println);
         for (Auto auto: autoList)
             if (Objects.equals(auto.getMarca(),value)) filteredList.add(auto);
         return filteredList;
