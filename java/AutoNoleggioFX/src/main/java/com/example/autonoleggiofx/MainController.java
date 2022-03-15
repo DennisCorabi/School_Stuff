@@ -8,11 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,7 +21,7 @@ import java.util.Objects;
 
 public class MainController {
 
-
+    public AnchorPane MainAnchorPane;
 
     @FXML
     TableView<Auto> carTable;
@@ -45,62 +42,101 @@ public class MainController {
     @FXML
     public void initialize(){
         InitializeTable();
-        AutoManager.Add(new Auto(Auto.Produttore.FIAT, "Tipo",  "20/02/2022", 15f));
-        AutoManager.Add(new Auto(Auto.Produttore.FERRARI, "modello","21/02/2020", 30f));
         InitializeChoiceBox();
-        InsertData();
+        UpdateTable();
 
+        /*aggiungo un "listener" alla finestra: quando clicco su una riga della tabella, chiamo la funzione "carInspector"
+        alla funzione passo le info della macchina che ho cliccato.
+         */
         carTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> CarInspector(newValue));
     }
 
+    /*
+    Metodo che inizializza i menu di scelta in tutta la finestra:
+    TODO: spostare il salvataggio della tabella in json o csv nella parte di admin (qui è inutile)
+     */
     private void InitializeChoiceBox(){
         List<String> fileTypesList = new ArrayList<>() {{add("JSON"); add("CSV");}};
         ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
         FileTypeChoiceBox.setItems(fileTypesObservableList);
+
 
         List<String> carModelsList = new ArrayList<>() {{add("FIAT"); add("FERRARI"); add("LAMBROGHINI");}};
         ObservableList<String> carModelsObservableList = FXCollections.observableList(carModelsList);
         CarModelChoiceBox.setItems(carModelsObservableList);
     }
 
-
+    /*
+    Metodo che inizializza una tabella: mappa le colonne in modo che siano legate a un solo parametro della classe AUTO
+    al posto di scrivere codice, chiamo il metodo statico di un altra classe (anche se non ha molto senso)
+     */
     private void InitializeTable(){
         AdminController.InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
     }
 
-    private void InsertData(){
+
+
+    /*
+    Metodo che aggiorna la tabella
+    TODO: controllare che sia corretto
+     */
+    private void UpdateTable(){
+        AutoManager.ReadJson();
         ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
         carTable.setItems(cars);
         System.out.println("Sono stati caricate "+AutoManager.getCounter()+" auto.");
     }
+
+    /*
+    Metodo per visualizzare le informazioni dell'auto cliccata sulla tabella.
+    Le info vengono visualizzate in una grid pane a lato della tabella.
+     */
     private void CarInspector(Auto car){
         ProduttoreValue.setText(car.getProduttore());
         ModelloValue.setText(car.getModello());
         TargaValue.setText(car.getTarga());
         CostoValue.setText(car.getCostoGiornaliero().toString());
-        DataValue.setText(car.getDataNoleggio().toString());
+        DataValue.setText(car.getDataNoleggio());
     }
 
-    public void OpenAdmin() throws IOException {
-        Parent part = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);     //la finestra appena creata blocca tutte le altre (non si possono muovere)
-        Scene scene = new Scene(part);
-        stage.setScene(scene);
-        stage.setTitle("Pannello Amministrativo");
-        stage.show();
+    /*
+    Metodo per caricare, sulla medesima finestra, la parte del programma destinata a essere utilizzata dall'amministratore dell'azienda.
+     */
+    public void OpenAdmin(){
+        try{
+            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
+            MainAnchorPane.getChildren().setAll(pane);
+        }
+        catch (IOException ex){
+            System.out.println("Il caricamento della pagina non è andato a buon fine.");
+        }
+
 
     }
 
-    public void saveAsButton() throws IOException {
-        switch(FileTypeChoiceBox.getValue()){
-            case "JSON" -> AutoManager.saveAsJSON();
-            case "CSV" -> AutoManager.saveAsCSV();
-            default -> System.out.println("No.");
+    /*
+    Metodo per salvare tutte le auto contenute in una tabella in un file JSON o CSV
+    TODO: spostare il metodo nella parte amministrativa, qui è inutile.
+     */
+    public void saveAsButton() {
+        try {
+            switch (FileTypeChoiceBox.getValue()) {
+                case "JSON" -> AutoManager.saveAsJSON();            //dò la possibilità di scegliere in quale formato salvare i file
+                case "CSV" -> AutoManager.saveAsCSV();
+            }
+        }
+        catch (NullPointerException ex){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Seleziona una delle opzioni prima di continuare");
+            alert.show();
         }
     }
 
+    /*
+    Metodo per visualizzare nella tabella solo le auto di una marca particolare.
+    FIXME non va nulla di questa funzione, ma spero che il nuovo sistema di lettura-scrittura-modifica dei dati si riuscirà a farlo funzionare
+     */
     public void GetCarsByMarca(){
         List<Auto> filteredList = AutoManager.getCarsByModel(CarModelChoiceBox.getValue());
         ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
