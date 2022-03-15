@@ -1,0 +1,15 @@
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\bin\Debug\net6.0\ContagiCovid.exe
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\bin\Debug\net6.0\ContagiCovid.deps.json
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\bin\Debug\net6.0\ContagiCovid.runtimeconfig.json
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\bin\Debug\net6.0\ContagiCovid.dll
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\bin\Debug\net6.0\ContagiCovid.pdb
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.csproj.AssemblyReference.cache
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.AssemblyInfoInputs.cache
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.AssemblyInfo.cs
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.csproj.CoreCompileInputs.cache
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.dll
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\refint\ContagiCovid.dll
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.pdb
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ContagiCovid.genruntimeconfig.cache
+C:\Users\denni\OneDrive\Backup\Desktop\school_stuff\C#\ContagiCovid\ContagiCovid\obj\Debug\net6.0\ref\ContagiCovid.dll
