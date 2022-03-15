@@ -93,7 +93,7 @@ public class MainController {
 
     }
 
-    public void saveAsButton(){
+    public void saveAsButton() throws IOException {
         switch(FileTypeChoiceBox.getValue()){
             case "JSON" -> AutoManager.saveAsJSON();
             case "CSV" -> AutoManager.saveAsCSV();

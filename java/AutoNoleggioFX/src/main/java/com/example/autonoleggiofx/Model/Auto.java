@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Auto {
     private final String targa;
-    private LocalDate dataNoleggio;
+    public String dataNoleggio;
     private final Produttore produttore;
     private final String modello;
     private Float costoGiornaliero;
@@ -24,9 +24,9 @@ public class Auto {
         this.costoGiornaliero = costoGiornaliero;
     }
 
-    private LocalDate InsertDate(String date){
+    private String InsertDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(date,formatter);
+        return LocalDate.parse(date,formatter).toString();
     }
 
     public String generateTarga(){
@@ -44,7 +44,7 @@ public class Auto {
         return targa;
     }
 
-    public LocalDate getDataNoleggio() {
+    public String getDataNoleggio() {
         return dataNoleggio;
     }
 

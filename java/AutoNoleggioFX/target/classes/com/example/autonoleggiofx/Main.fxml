@@ -63,5 +63,6 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Button layoutX="707.0" layoutY="31.0" mnemonicParsing="false" text="Login" onAction="#OpenAdmin"/>
    </children>
 </AnchorPane>
