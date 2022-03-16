@@ -75,8 +75,6 @@ public class MainController {
         AdminController.InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
     }
 
-
-
     /*
     Metodo che aggiorna la tabella
     TODO: controllare che sia corretto
@@ -84,6 +82,9 @@ public class MainController {
     private void UpdateTable(){
         AutoManager.ReadJson();
         ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
+        ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
+        carTable.setItems(clearObservableList);
+
         carTable.setItems(cars);
         System.out.println("Sono stati caricate "+AutoManager.getCounter()+" auto.");
     }
@@ -111,8 +112,6 @@ public class MainController {
         catch (IOException ex){
             System.out.println("Il caricamento della pagina non è andato a buon fine.");
         }
-
-
     }
 
     /*
@@ -140,7 +139,8 @@ public class MainController {
     public void GetCarsByMarca(){
         List<Auto> filteredList = AutoManager.getCarsByModel(CarModelChoiceBox.getValue());
         ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
-        carTable.getItems().clear();
+        ObservableList<Auto> clearList = FXCollections.observableArrayList(new ArrayList<>());
+        carTable.setItems(clearList);
         carTable.setItems(filteredObservableList);
     }
 

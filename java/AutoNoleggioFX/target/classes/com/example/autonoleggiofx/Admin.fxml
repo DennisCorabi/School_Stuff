@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autonoleggiofx.AdminController">
+<AnchorPane fx:id="AdminAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autonoleggiofx.AdminController">
    <children>
        <TabPane prefHeight="483.0" prefWidth="766.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>
@@ -60,17 +60,66 @@
                                     <TableColumn fx:id="DataColumn" prefWidth="83.0" text="Data" />
                                 </columns>
                             </TableView>
-                        <Label layoutX="34.0" layoutY="14.0" text="Area amministrativa">
+                        <Label layoutX="34.0" layoutY="14.0" text="Area amministrativa: Panoramica">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
                         <Button layoutX="34.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Aggiungi" />
-                        <Button layoutX="185.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Rimuovi" fx:id="DeleteButton" onAction="#DeleteCar"/>
+                        <Button fx:id="DeleteButton" layoutX="185.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="127.0" text="Rimuovi" />
                         </children>
                      </AnchorPane>
                  </content>
               </Tab>
+            <Tab fx:id="AggiungiTab" disable="true" text="Aggiungi">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="77.0" layoutY="47.0" text="Area amministrativa: Aggiungi">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="230.0" layoutY="112.0" prefHeight="210.0" prefWidth="307.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="133.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="204.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Data noleggio" GridPane.rowIndex="3" />
+                              <Label layoutX="10.0" layoutY="24.0" text="Targa" GridPane.rowIndex="2" />
+                              <Label layoutX="10.0" layoutY="24.0" text="Modello" GridPane.rowIndex="1" />
+                              <Label layoutX="10.0" layoutY="157.0" text="Produttore" />
+                              <Label layoutX="10.0" layoutY="157.0" text="Prezzo/giornata" GridPane.rowIndex="4" />
+                              <TextField fx:id="ModelloTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="TargaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="DataTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="PrezzoTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ChoiceBox fx:id="ProduttoreChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="553.0" layoutY="202.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
+                        <Button layoutX="307.0" layoutY="351.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Aggiungi" onAction="#AddCar" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Esci">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="138.0" layoutY="195.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="65.0" prefWidth="474.0" text="Esci" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           </tabs>
        </TabPane>
    </children>

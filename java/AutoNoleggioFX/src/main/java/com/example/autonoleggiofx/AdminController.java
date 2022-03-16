@@ -40,7 +40,7 @@ public class AdminController {
     public TextField ModelloTextField;
     public TextField TargaTextField;
     public TextField DataTextField;
-    public ChoiceBox<String> ProduttoreChoiceBox;
+    public ChoiceBox<Auto.Produttore> ProduttoreChoiceBox;
     public TextField PrezzoTextField;
 
 
@@ -121,9 +121,9 @@ public class AdminController {
     Metodo per inserire tutte le possibili opzioni di tutti i menu di scelta
      */
     private void InitializeChoiceBoxes(){
-        List<String> choices = new ArrayList<>();
-        choices.add(Auto.Produttore.FERRARI.toString());
-        choices.add(Auto.Produttore.FIAT.toString());
+        List<Auto.Produttore> choices = new ArrayList<>();
+        choices.add(Auto.Produttore.FERRARI);
+        choices.add(Auto.Produttore.FIAT);
         ProduttoreChoiceBox.setItems(FXCollections.observableList(choices));
     }
 
@@ -148,7 +148,40 @@ public class AdminController {
         System.out.println(AutoManager.getAutoList());
         alert.show();
 
-        UpdateTable();      //dopo averla eliminata, aggiorna la tabella
+        UpdateTable();      //dopo aver eliminato una macchina, aggiorno la tabella
+    }
+
+    public void GenerateTarga(){
+        TargaTextField.setText(Auto.generateTarga());
+    }
+
+    public void AddCar(){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        String modello = ModelloTextField.getText();
+        String targa = TargaTextField.getText();
+        Float costo = Float.parseFloat(PrezzoTextField.getText());
+        String data = DataTextField.getText();
+
+        Auto auto = new Auto(targa, data, ProduttoreChoiceBox.getValue(),modello, costo);
+        try {
+            if (AutoManager.IsTargaAlreadyInCar(auto.getTarga())) {
+                alert.setAlertType(Alert.AlertType.INFORMATION);
+                alert.setContentText("E' già presente una macchina con questa targa: " + auto.getTarga());
+                alert.show();
+            } else {
+                    AutoManager.Add(auto);
+                    AutoManager.WriteJson();
+
+                    alert.setContentText("Inserimento avvenuto con successo.");
+                    alert.show();
+                    UpdateTable();
+            }
+        }
+        catch (IOException ex){
+            System.out.println("Scrittura del file non riuscita.");
+        }
     }
 
     /*
@@ -157,8 +190,11 @@ public class AdminController {
      */
 
     public void UpdateTable(){
+
+        ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
+        carTable.setItems(clearObservableList);
+
         ObservableList<Auto> carObservableList = FXCollections.observableList(AutoManager.getAutoList());
-        if (!carTable.getItems().isEmpty()) carTable.getItems().clear();
         carTable.setItems(carObservableList);
     }
 

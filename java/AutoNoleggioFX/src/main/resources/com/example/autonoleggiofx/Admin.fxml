@@ -71,7 +71,7 @@
                      </AnchorPane>
                  </content>
               </Tab>
-            <Tab disable="true" text="Aggiungi" fx:id="AggiungiTab">
+            <Tab fx:id="AggiungiTab" disable="true" text="Aggiungi">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -80,10 +80,10 @@
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <GridPane layoutX="246.0" layoutY="95.0" prefHeight="221.0" prefWidth="267.0">
+                        <GridPane layoutX="230.0" layoutY="112.0" prefHeight="210.0" prefWidth="307.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="133.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="204.0" />
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -105,6 +105,8 @@
                               <ChoiceBox fx:id="ProduttoreChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
+                        <Button layoutX="553.0" layoutY="202.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
+                        <Button layoutX="307.0" layoutY="351.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Aggiungi" onAction="#AddCar" />
                      </children>
                   </AnchorPane>
               </content>
@@ -113,7 +115,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="138.0" layoutY="195.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="474.0" text="Esci" onAction="#ExitAdminPage"/>
+                        <Button layoutX="138.0" layoutY="195.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="65.0" prefWidth="474.0" text="Esci" />
                      </children>
                   </AnchorPane>
               </content>
