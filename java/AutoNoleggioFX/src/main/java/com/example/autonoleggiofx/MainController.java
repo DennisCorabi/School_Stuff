@@ -6,12 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,8 +27,7 @@ public class MainController {
     public TableColumn<Auto, String> TargaColumn;
     public TableColumn<Auto, Float> CostoColumn;
     public TableColumn<Auto, LocalDate> DataColumn;
-    public ChoiceBox<String> FileTypeChoiceBox;
-    public ChoiceBox<String> CarModelChoiceBox;
+    public ChoiceBox<Auto.Produttore> CarModelChoiceBox;
 
     public Label TargaValue;
     public Label CostoValue;
@@ -43,7 +38,12 @@ public class MainController {
     public void initialize(){
         InitializeTable();
         InitializeChoiceBox();
+        carTable.getItems().clear(); //serve nel momento in cui dalla finestra amministrativa torno nell' area cliente
+        CarInspector(null); //serve per "nascondere" il testo iniziale delle etichette nella descrizione dell'auto
         UpdateTable();
+        if (carTable.getItems().isEmpty())  //se si sta caricando la finestra per la prima volta, carico le auto del file nel vettore
+            AutoManager.ReadJson();
+
 
         /*aggiungo un "listener" alla finestra: quando clicco su una riga della tabella, chiamo la funzione "carInspector"
         alla funzione passo le info della macchina che ho cliccato.
@@ -54,16 +54,9 @@ public class MainController {
 
     /*
     Metodo che inizializza i menu di scelta in tutta la finestra:
-    TODO: spostare il salvataggio della tabella in json o csv nella parte di admin (qui è inutile)
      */
     private void InitializeChoiceBox(){
-        List<String> fileTypesList = new ArrayList<>() {{add("JSON"); add("CSV");}};
-        ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
-        FileTypeChoiceBox.setItems(fileTypesObservableList);
-
-
-        List<String> carModelsList = new ArrayList<>() {{add("FIAT"); add("FERRARI"); add("LAMBROGHINI");}};
-        ObservableList<String> carModelsObservableList = FXCollections.observableList(carModelsList);
+        ObservableList<Auto.Produttore> carModelsObservableList = FXCollections.observableList(AutoManager.getChoices());
         CarModelChoiceBox.setItems(carModelsObservableList);
     }
 
@@ -80,13 +73,11 @@ public class MainController {
     TODO: controllare che sia corretto
      */
     private void UpdateTable(){
-        AutoManager.ReadJson();
-        ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
+
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
-
+        ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
         carTable.setItems(cars);
-        System.out.println("Sono stati caricate "+AutoManager.getCounter()+" auto.");
     }
 
     /*
@@ -94,11 +85,20 @@ public class MainController {
     Le info vengono visualizzate in una grid pane a lato della tabella.
      */
     private void CarInspector(Auto car){
-        ProduttoreValue.setText(car.getProduttore());
-        ModelloValue.setText(car.getModello());
-        TargaValue.setText(car.getTarga());
-        CostoValue.setText(car.getCostoGiornaliero().toString());
-        DataValue.setText(car.getDataNoleggio());
+        try {
+            ProduttoreValue.setText(car.getProduttore().toString());
+            ModelloValue.setText(car.getModello());
+            TargaValue.setText(car.getTarga());
+            CostoValue.setText(car.getCostoGiornaliero().toString());
+            DataValue.setText(car.getDataNoleggio());
+        }
+        catch (NullPointerException ex){
+            ProduttoreValue.setText("");
+            ModelloValue.setText("");
+            TargaValue.setText("");
+            CostoValue.setText("");
+            DataValue.setText("");
+        }
     }
 
     /*
@@ -115,33 +115,19 @@ public class MainController {
     }
 
     /*
-    Metodo per salvare tutte le auto contenute in una tabella in un file JSON o CSV
-    TODO: spostare il metodo nella parte amministrativa, qui è inutile.
-     */
-    public void saveAsButton() {
-        try {
-            switch (FileTypeChoiceBox.getValue()) {
-                case "JSON" -> AutoManager.saveAsJSON();            //dò la possibilità di scegliere in quale formato salvare i file
-                case "CSV" -> AutoManager.saveAsCSV();
-            }
-        }
-        catch (NullPointerException ex){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Seleziona una delle opzioni prima di continuare");
-            alert.show();
-        }
-    }
-
-    /*
     Metodo per visualizzare nella tabella solo le auto di una marca particolare.
-    FIXME non va nulla di questa funzione, ma spero che il nuovo sistema di lettura-scrittura-modifica dei dati si riuscirà a farlo funzionare
      */
     public void GetCarsByMarca(){
-        List<Auto> filteredList = AutoManager.getCarsByModel(CarModelChoiceBox.getValue());
-        ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
         ObservableList<Auto> clearList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearList);
+
+        List<Auto> filteredList = AutoManager.getCarsByProduttore(CarModelChoiceBox.getValue());
+        ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
         carTable.setItems(filteredObservableList);
+
+
+
+
     }
 
 

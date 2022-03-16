@@ -1,55 +1,51 @@
 package com.example.autonoleggiofx.Model;
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.file.*;
-import java.nio.file.attribute.FileAttribute;
 import java.util.*;
 
 public class AutoManager {
-    private static Integer counter = 0;         //numero di auto che sono fuori dall'autonoleggio
     private static final List<Auto> autoList = new ArrayList<>();
-    private static Gson gson = new Gson();
-    private static String filePath = "src/main/resources/com/example/autonoleggiofx/auto.json";
+    private static final Gson gson = new Gson();
+    private static final String filePath = "src/main/resources/com/example/autonoleggiofx/auto.json";
+    private static final List<Auto.Produttore> choices = new ArrayList<>(){{add(Auto.Produttore.FIAT); add(Auto.Produttore.FERRARI); add(Auto.Produttore.LAMBORGHINI);}};
 
     public static void Add(Auto auto) {
-        for (Auto auto1 : autoList)
-            if (Objects.equals(auto1.getTarga(), auto.getTarga())) {
-                return;
-            }
         autoList.add(auto);
     }
 
-    public static void Delete(Auto auto) {
-        autoList.remove(auto);
-    }
-
-    public static Integer getCounter() {
-        return counter;
+    public static void DeleteByTarga(String targa) {
+        autoList.removeIf(auto -> auto.getTarga().equals(targa));
     }
 
     public static List<Auto> getAutoList() {
         return autoList;
     }
 
+    public static List<Auto.Produttore> getChoices() {
+        return choices;
+    }
 
-    public static List<Auto> getCarsByModel(String value) {
+    public static List<Auto> getCarsByProduttore(Auto.Produttore produttore) {
         List<Auto> filteredList = new ArrayList<>();
         for (Auto auto : autoList)
-            if (Objects.equals(auto.getProduttore(), value)) filteredList.add(auto);
+            if (Objects.equals(auto.getProduttore(), produttore)) filteredList.add(auto);
         return filteredList;
+    }
+
+    public static Boolean IsTargaUsable(String targa){
+        for (Auto auto: autoList){
+            if (auto.getTarga().equals(targa)) return false;
+        }
+        return true;
     }
 
     public static void WriteJson() throws IOException {
         String contentToWrite = gson.toJson(autoList);
-        File file = new File(filePath);
-        FileWriter fileWriter = new FileWriter(file);
+        FileWriter fileWriter = new FileWriter(filePath);
         try {
             fileWriter.write(contentToWrite);
             fileWriter.close();

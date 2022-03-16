@@ -23,26 +23,26 @@
                                     <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                <children>
-                                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="27.0" prefWidth="190.0" text="E-mail">
+                                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="27.0" prefWidth="190.0" text="Username">
                                        <font>
                                            <Font size="18.0" />
                                        </font>
                                    </Label>
                                    <TextField fx:id="EmailTextField" GridPane.columnIndex="1" />
-                                   <TextField fx:id="PasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="29.0" prefHeight="27.0" prefWidth="187.0" text="Password" GridPane.rowIndex="1">
                                        <font>
                                            <Font size="18.0" />
                                        </font>
                                    </Label>
+                              <PasswordField fx:id="PasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                </children>
                             </GridPane>
-                            <Label alignment="CENTER" layoutX="80.0" layoutY="67.0" prefHeight="45.0" prefWidth="608.0" text="Login">
+                            <Label alignment="CENTER" layoutX="79.0" layoutY="67.0" prefHeight="45.0" prefWidth="608.0" text="Login">
                                 <font>
-                                    <Font size="49.0" />
+                                    <Font size="45.0" />
                                 </font>
                             </Label>
-                            <Button layoutX="293.0" layoutY="261.0" mnemonicParsing="false" onAction="#Login" prefHeight="31.0" prefWidth="181.0" text="Login" />
+                            <Button fx:id="LoginButton" layoutX="317.0" layoutY="261.0" mnemonicParsing="false" onAction="#Login" prefHeight="31.0" prefWidth="133.0" text="Login" />
                         </children>
                      </AnchorPane>
                  </content>
@@ -65,22 +65,22 @@
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <Button layoutX="34.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Aggiungi" />
-                        <Button fx:id="DeleteButton" layoutX="185.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="127.0" text="Rimuovi" />
+                        <Button fx:id="DeleteButton" layoutX="34.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="127.0" text="Rimuovi" />
+                        <TextField fx:id="TargaRemoveTextField" layoutX="179.0" layoutY="405.0" prefHeight="25.0" prefWidth="138.0" promptText="Insersci la targa" />
                         </children>
                      </AnchorPane>
                  </content>
               </Tab>
-            <Tab fx:id="AggiungiTab" disable="true" text="Aggiungi">
+            <Tab fx:id="GestisciTab" disable="true" text="Gestisci">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="77.0" layoutY="47.0" text="Area amministrativa: Aggiungi">
+                        <Label layoutX="39.0" layoutY="49.0" text="Aggiungi">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <GridPane layoutX="230.0" layoutY="112.0" prefHeight="210.0" prefWidth="307.0">
+                        <GridPane layoutX="38.0" layoutY="97.0" prefHeight="210.0" prefWidth="307.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="133.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="204.0" />
@@ -100,13 +100,24 @@
                               <Label layoutX="10.0" layoutY="157.0" text="Prezzo/giornata" GridPane.rowIndex="4" />
                               <TextField fx:id="ModelloTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="TargaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="DataTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="PrezzoTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <ChoiceBox fx:id="ProduttoreChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ChoiceBox fx:id="ProduttoreChoiceBox" prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="DataPicker" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Button layoutX="553.0" layoutY="202.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
-                        <Button layoutX="307.0" layoutY="351.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Aggiungi" onAction="#AddCar" />
+                        <Button layoutX="356.0" layoutY="190.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
+                        <Button layoutX="112.0" layoutY="323.0" mnemonicParsing="false" onAction="#AddCar" prefHeight="19.0" prefWidth="160.0" text="Aggiungi" />
+                        <GridPane layoutX="508.0" layoutY="97.0" prefHeight="30.0" prefWidth="192.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="65.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="127.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <ChoiceBox fx:id="FileTypeChoiceBox" layoutX="57.0" layoutY="396.0" prefWidth="150.0" />
+                        <Button layoutX="228.0" layoutY="396.0" mnemonicParsing="false" onAction="#saveAsButton" text="Salva" />
                      </children>
                   </AnchorPane>
               </content>
@@ -115,7 +126,13 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="138.0" layoutY="195.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="65.0" prefWidth="474.0" text="Esci" />
+                        <Button layoutX="203.0" layoutY="199.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="56.0" prefWidth="162.0" text="Torna alla sezione cliente" />
+                        <Button layoutX="399.0" layoutY="199.0" mnemonicParsing="false" onAction="#Logout" prefHeight="56.0" prefWidth="162.0" text="Disconnettiti" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="92.0" prefHeight="74.0" prefWidth="360.0" text="ESCI">
+                           <font>
+                              <Font size="45.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
               </content>

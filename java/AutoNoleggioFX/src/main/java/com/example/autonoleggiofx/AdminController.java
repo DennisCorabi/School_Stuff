@@ -12,10 +12,11 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-import java.util.SplittableRandom;
 
 public class AdminController {
 
@@ -26,28 +27,27 @@ public class AdminController {
      */
     public TextField PasswordTextField;
     public TextField EmailTextField;
+    public Button LoginButton;
 
     /*
     ADMIN TAB
      */
     public Tab AdminTab;
-    public Button DeleteButton;
 
-    /*
-    AGGIUNGI TAB
-     */
-    public Tab AggiungiTab;
+    //Aggiungi macchina
+    public Tab GestisciTab;
     public TextField ModelloTextField;
     public TextField TargaTextField;
-    public TextField DataTextField;
+    public DatePicker DataPicker;
     public ChoiceBox<Auto.Produttore> ProduttoreChoiceBox;
     public TextField PrezzoTextField;
 
+    //salva una macchina
+    public ChoiceBox<String> FileTypeChoiceBox;
 
-
-    private final String EMAIL_VALUE = "Admin";
-    private final String PASSWORD_VALUE = "Admin";
-
+    //rimuovi macchina
+    public TextField TargaRemoveTextField;
+    public Button DeleteButton;
 
     @FXML
     TableView<Auto> carTable;
@@ -65,44 +65,44 @@ public class AdminController {
      */
     public void Login(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        String insertedEmail = EmailTextField.getText().isEmpty() ? null: EmailTextField.getText();
-        String insertedPassword = PasswordTextField.getText().isEmpty() ? null: PasswordTextField.getText();
+        String PASSWORD_VALUE = "Admin";
+        String EMAIL_VALUE = "Admin";
 
         //controlla che siano stati compilati tutti i campi
-        if (insertedEmail==null || insertedPassword == null){
+        if (PasswordTextField.getText().isEmpty() || EmailTextField.getText().isEmpty()){
             alert.setContentText("Devi compilare correttamente i due campi!");
             alert.show();
             return;
         }
 
         //controlla che siano state inserite le credenziali corrette.
+
         boolean isEmailCorrect = Objects.equals(EmailTextField.getText(), EMAIL_VALUE);
-        boolean isPasswordCorrect = Objects.equals(PasswordTextField.getText(),PASSWORD_VALUE);
+        boolean isPasswordCorrect = Objects.equals(PasswordTextField.getText(), PASSWORD_VALUE);
+
         if (isEmailCorrect && isPasswordCorrect) {
-            AdminTab.setDisable(false);         //attiva le tab riservate al super-utente
-            InitializeAdminTab();
-            AggiungiTab.setDisable(false);
-            InitializeChoiceBoxes();
+            InitializeTabs();
 
             alert.setAlertType(Alert.AlertType.INFORMATION);
+            LoginButton.setDisable(true);
             alert.setContentText("Login effettuato con successo.\nL'area amministrativa è stata sbloccata.");
-            alert.show();
         }
         else{
             alert.setContentText("Password e/o Email non corretta. Riprova.");
-            alert.show();
-            ClearFieldsInLoginPage();       //se le credenziali sono scorrette, pulisce tutti i campi
         }
+        alert.show();
+        ClearFieldsInLoginPage();       //pulisce i campi dopo l'inserimento dei dati
     }
 
     /*
     Metodo che gestisce l'inizializzazione della tab riservata al super User
      */
-    private void InitializeAdminTab(){
+    private void InitializeTabs(){
+        AdminTab.setDisable(false);
+        GestisciTab.setDisable(false);
+
         InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
-        carTable.getSelectionModel().selectedItemProperty().isNotNull().addListener(        // FIXME: 15/03/2022
-                observable -> DeleteButton.setDisable(false)
-        );
+        InitializeChoiceBoxes();
         UpdateTable();      //inserisce le auto disponibili in una tabella
     }
 
@@ -121,10 +121,11 @@ public class AdminController {
     Metodo per inserire tutte le possibili opzioni di tutti i menu di scelta
      */
     private void InitializeChoiceBoxes(){
-        List<Auto.Produttore> choices = new ArrayList<>();
-        choices.add(Auto.Produttore.FERRARI);
-        choices.add(Auto.Produttore.FIAT);
-        ProduttoreChoiceBox.setItems(FXCollections.observableList(choices));
+        ProduttoreChoiceBox.setItems(FXCollections.observableList(AutoManager.getChoices()));
+
+        List<String> fileTypesList = new ArrayList<>() {{add("JSON"); add("CSV");}};
+        ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
+        FileTypeChoiceBox.setItems(fileTypesObservableList);
     }
 
     /*
@@ -141,52 +142,89 @@ public class AdminController {
      */
 
     public void DeleteCar(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        Auto carToDelete = carTable.getSelectionModel().getSelectedItem();      // FIXME: 15/03/2022
-        AutoManager.Delete(carToDelete);
-        alert.setContentText("Eliminazione dell'auto avvenuta con successo.");
-        System.out.println(AutoManager.getAutoList());
-        alert.show();
-
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        String targa = TargaRemoveTextField.getText().toUpperCase();
+        try {
+            if (targa.length() == 8) {
+                if (AutoManager.IsTargaUsable(targa))
+                    alert.setContentText("Non è stata trovata una macchina con la targa " + targa);
+                else {
+                    AutoManager.DeleteByTarga(targa);
+                    AutoManager.WriteJson();
+                    UpdateTable();
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Rimozione dell'auto avvenuta con successo.");
+                    TargaRemoveTextField.clear();
+                }
+            } else {
+                alert.setContentText("La targa deve contenere 8 cifre.");
+            }
+            alert.show();
+        }
+        catch (IOException ex){
+            System.out.println("Scrittura del file non riuscita.");
+        }
         UpdateTable();      //dopo aver eliminato una macchina, aggiorno la tabella
-    }
-
-    public void GenerateTarga(){
-        TargaTextField.setText(Auto.generateTarga());
     }
 
     public void AddCar(){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
         String modello = ModelloTextField.getText();
         String targa = TargaTextField.getText();
         Float costo = Float.parseFloat(PrezzoTextField.getText());
-        String data = DataTextField.getText();
-
+        String data = DataPicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Auto auto = new Auto(targa, data, ProduttoreChoiceBox.getValue(),modello, costo);
+
+        //controllo che tutti i campi siano stati compilati correttamente
+        if (ModelloTextField.getText().isEmpty() || TargaTextField.getText().isEmpty() || PrezzoTextField.getText().isEmpty() || DataPicker.getValue()==null || ProduttoreChoiceBox.getValue()==null) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Compila tutti i campi prima di aggiungere una nuova macchina.");
+            alert.show();
+            return;
+        }
+
+        //controllo che la targa abbia otto caratteri
+        if (targa.length()!=8){
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("La targa deve avere 8 caratteri.");
+            alert.show();
+            return;
+        }
         try {
-            if (AutoManager.IsTargaAlreadyInCar(auto.getTarga())) {
+            if (AutoManager.IsTargaUsable(auto.getTarga())) {
+
+                AutoManager.Add(auto);
+                AutoManager.WriteJson();
+                alert.setContentText("Inserimento avvenuto con successo.");
+                UpdateTable();
+                ClearFieldsInAddCarPage();
+
+            } else {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("E' già presente una macchina con questa targa: " + auto.getTarga());
-                alert.show();
-            } else {
-                    AutoManager.Add(auto);
-                    AutoManager.WriteJson();
-
-                    alert.setContentText("Inserimento avvenuto con successo.");
-                    alert.show();
-                    UpdateTable();
             }
+            alert.show();
         }
         catch (IOException ex){
             System.out.println("Scrittura del file non riuscita.");
         }
     }
 
+    public void ClearFieldsInAddCarPage(){
+        ProduttoreChoiceBox.setValue(null);
+        DataPicker.setValue(null);
+        ModelloTextField.clear();
+        TargaTextField.clear();
+        PrezzoTextField.clear();
+    }
+
+    public void GenerateTarga(){
+        TargaTextField.setText(Auto.generateTarga());
+    }
+
     /*
     Metodo che aggiorna la tabella
-    TODO: IMPORTANTE, adattare il metodo alla nuova forma di lettura/inserimento dati (ovvero da file)
      */
 
     public void UpdateTable(){
@@ -198,6 +236,22 @@ public class AdminController {
         carTable.setItems(carObservableList);
     }
 
+    /*
+    Metodo per salvare tutte le auto contenute in una tabella in un file JSON o CSV
+     */
+    public void saveAsButton() {
+        try {
+            switch (FileTypeChoiceBox.getValue()) {
+                case "JSON" -> AutoManager.saveAsJSON();            //dò la possibilità di scegliere in quale formato salvare i file
+                case "CSV" -> AutoManager.saveAsCSV();
+            }
+        }
+        catch (NullPointerException ex){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Seleziona una delle opzioni prima di continuare");
+            alert.show();
+        }
+    }
     /*
     Metodo che dalla pagina admin torna alla pagina del cliente.
     TODO: migliorare
@@ -212,5 +266,15 @@ public class AdminController {
             System.out.println("Il caricamento della pagina non è andato a buon fine.");
         }
 
+    }
+
+    public void Logout(){
+        try {
+            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
+            AdminAnchorPane.getChildren().setAll(pane);
+        }
+        catch (IOException ex){
+            System.out.println("Il caricamento della pagina non è andato a buon fine.");
+        }
     }
 }
