@@ -65,8 +65,8 @@
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <Button fx:id="DeleteButton" layoutX="34.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="127.0" text="Rimuovi" />
-                        <TextField fx:id="TargaRemoveTextField" layoutX="179.0" layoutY="405.0" prefHeight="25.0" prefWidth="138.0" promptText="Insersci la targa" />
+                        <Button fx:id="DeleteButton" layoutX="34.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="187.0" text="Rimuovi auto" />
+                        <Button layoutX="248.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="213.0" text="Visualizza auto noleggiate" onAction="#ShowAutoNoleggiate"/>
                         </children>
                      </AnchorPane>
                  </content>

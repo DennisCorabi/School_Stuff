@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autonoleggiofx.AutoNoleggiateController">
+   <children>
+      <Label layoutX="24.0" layoutY="14.0" prefHeight="44.0" prefWidth="296.0" text="Auto noleggiate">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="carTable" layoutX="73.0" layoutY="65.0" prefHeight="282.0" prefWidth="454.0">
+         <columns>
+            <TableColumn fx:id="ProduttoreColumn" prefWidth="75.0" text="Produttore" />
+            <TableColumn fx:id="ModelloColumn" prefWidth="75.0" text="Modello" />
+            <TableColumn fx:id="TargaColumn" prefWidth="75.0" text="Targa" />
+            <TableColumn fx:id="CostoColumn" prefWidth="106.0" text="Costo/Giornata" />
+            <TableColumn fx:id="DataColumn" prefWidth="122.0" text="Data Noleggio" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

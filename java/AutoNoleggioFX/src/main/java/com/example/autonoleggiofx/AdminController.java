@@ -6,16 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class AdminController {
@@ -46,7 +48,6 @@ public class AdminController {
     public ChoiceBox<String> FileTypeChoiceBox;
 
     //rimuovi macchina
-    public TextField TargaRemoveTextField;
     public Button DeleteButton;
 
     @FXML
@@ -101,7 +102,7 @@ public class AdminController {
         AdminTab.setDisable(false);
         GestisciTab.setDisable(false);
 
-        InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
+        InitializeDisponibiliTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
         InitializeChoiceBoxes();
         UpdateTable();      //inserisce le auto disponibili in una tabella
     }
@@ -109,12 +110,16 @@ public class AdminController {
     /*
     Metodo che inizializza una tabella: mappa le colonne in modo che siano legate a un solo parametro della classe AUTO
      */
-    static void InitializeTable(TableColumn<Auto, Auto.Produttore> produttoreColumn, TableColumn<Auto, String> modelloColumn, TableColumn<Auto, String> targaColumn, TableColumn<Auto, Float> costoColumn, TableColumn<Auto, LocalDate> dataColumn) {
+    public static void InitializeDisponibiliTable(TableColumn<Auto, Auto.Produttore> produttoreColumn, TableColumn<Auto, String> modelloColumn, TableColumn<Auto, String> targaColumn, TableColumn<Auto, Float> costoColumn, TableColumn<Auto, LocalDate> dataColumn) {
         produttoreColumn.setCellValueFactory(new PropertyValueFactory<>("Produttore"));
         modelloColumn.setCellValueFactory(new PropertyValueFactory<>("Modello"));
         targaColumn.setCellValueFactory(new PropertyValueFactory<>("Targa"));
         costoColumn.setCellValueFactory(new PropertyValueFactory<>("CostoGiornaliero"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("DataNoleggio"));
+    }
+
+    static void InitializeNoleggiatiTable(){
+
     }
 
     /*
@@ -142,28 +147,20 @@ public class AdminController {
      */
 
     public void DeleteCar(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        String targa = TargaRemoveTextField.getText().toUpperCase();
-        try {
-            if (targa.length() == 8) {
-                if (AutoManager.IsTargaUsable(targa))
-                    alert.setContentText("Non è stata trovata una macchina con la targa " + targa);
-                else {
-                    AutoManager.DeleteByTarga(targa);
-                    AutoManager.WriteJson();
-                    UpdateTable();
-                    alert.setAlertType(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Rimozione dell'auto avvenuta con successo.");
-                    TargaRemoveTextField.clear();
-                }
-            } else {
-                alert.setContentText("La targa deve contenere 8 cifre.");
-            }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        try{
+        Auto autoToRemove = carTable.getSelectionModel().getSelectedItem();
+        AutoManager.DeleteAuto(autoToRemove);
+        alert.setContentText("Rimozione dell'auto avvenuta con successo.");
+        alert.show();
+        }
+        catch (NullPointerException ex){
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Seleziona un auto nella tabella prima di continuare.");
             alert.show();
         }
-        catch (IOException ex){
-            System.out.println("Scrittura del file non riuscita.");
-        }
+
         UpdateTable();      //dopo aver eliminato una macchina, aggiorno la tabella
     }
 
@@ -191,24 +188,18 @@ public class AdminController {
             alert.show();
             return;
         }
-        try {
-            if (AutoManager.IsTargaUsable(auto.getTarga())) {
+        if (AutoManager.IsTargaUsable(auto.getTarga())) {
 
-                AutoManager.Add(auto);
-                AutoManager.WriteJson();
-                alert.setContentText("Inserimento avvenuto con successo.");
-                UpdateTable();
-                ClearFieldsInAddCarPage();
+            AutoManager.InsertAuto(auto);
+            alert.setContentText("Inserimento avvenuto con successo.");
+            UpdateTable();
+            ClearFieldsInAddCarPage();
 
-            } else {
-                alert.setAlertType(Alert.AlertType.INFORMATION);
-                alert.setContentText("E' già presente una macchina con questa targa: " + auto.getTarga());
-            }
-            alert.show();
+        } else {
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("E' già presente una macchina con questa targa: " + auto.getTarga());
         }
-        catch (IOException ex){
-            System.out.println("Scrittura del file non riuscita.");
-        }
+        alert.show();
     }
 
     public void ClearFieldsInAddCarPage(){
@@ -232,7 +223,7 @@ public class AdminController {
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
 
-        ObservableList<Auto> carObservableList = FXCollections.observableList(AutoManager.getAutoList());
+        ObservableList<Auto> carObservableList = FXCollections.observableList(AutoManager.getAutoDisponibiliList());
         carTable.setItems(carObservableList);
     }
 
@@ -243,19 +234,34 @@ public class AdminController {
         try {
             switch (FileTypeChoiceBox.getValue()) {
                 case "JSON" -> AutoManager.saveAsJSON();            //dò la possibilità di scegliere in quale formato salvare i file
-                case "CSV" -> AutoManager.saveAsCSV();
+                case "CSV" -> AutoManager.SaveAsCSV();
             }
         }
-        catch (NullPointerException ex){
+        catch (Exception ex){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Seleziona una delle opzioni prima di continuare");
             alert.show();
         }
     }
+
+    public void ShowAutoNoleggiate(){
+        Parent root;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AutoNoleggiate.fxml")));
+            Stage stage = new Stage();
+            stage.setTitle("Auto noleggiate");
+            stage.setScene(new Scene(root));
+            stage.show();
+            // Hide this current window (if this is what you want)
+            //((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+        catch (IOException e) {
+            System.out.println("Carimento della finestra fallito.");
+        }
+    }
+
     /*
     Metodo che dalla pagina admin torna alla pagina del cliente.
-    TODO: migliorare
-
      */
     public void ExitAdminPage(){
         try{

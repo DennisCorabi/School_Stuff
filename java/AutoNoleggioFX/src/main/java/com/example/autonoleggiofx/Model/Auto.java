@@ -5,8 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Auto {
+
     private final String targa;
-    private final String dataNoleggio;
+    private String dataNoleggio;
     private final Produttore produttore;
     private final String modello;
     private final Float costoGiornaliero;
@@ -36,6 +37,7 @@ public class Auto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(date,formatter).toString();
     }
+
 
     public static String generateTarga(){
         Random random = new Random();
@@ -70,6 +72,10 @@ public class Auto {
 
     public Float getCostoGiornaliero() {
         return costoGiornaliero;
+    }
+
+    public void setDataNoleggio(String dataNoleggio) {
+        this.dataNoleggio = InsertDate(dataNoleggio);
     }
 
     @Override

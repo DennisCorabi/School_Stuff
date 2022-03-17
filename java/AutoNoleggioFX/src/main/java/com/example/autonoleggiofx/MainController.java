@@ -65,7 +65,7 @@ public class MainController {
     al posto di scrivere codice, chiamo il metodo statico di un altra classe (anche se non ha molto senso)
      */
     private void InitializeTable(){
-        AdminController.InitializeTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
+        AdminController.InitializeDisponibiliTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
     }
 
     /*
@@ -76,7 +76,7 @@ public class MainController {
 
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
-        ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoList());
+        ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoDisponibiliList());
         carTable.setItems(cars);
     }
 
@@ -128,6 +128,22 @@ public class MainController {
 
 
 
+    }
+
+    public void AddAutoToNoleggiateList(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        try {
+            Auto auto = carTable.getSelectionModel().getSelectedItem();
+            AutoManager.AddToNoleggiateList(auto);
+            UpdateTable();
+            alert.setContentText("Auto noleggiata con successo.");
+            alert.show();
+
+        }catch (NullPointerException ex){
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Devi prima scegliere una macchina nella tabella.");
+            alert.show();
+        }
     }
 
 
