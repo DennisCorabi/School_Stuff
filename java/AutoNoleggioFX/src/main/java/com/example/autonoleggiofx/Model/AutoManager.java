@@ -29,6 +29,13 @@ public class AutoManager {
         WriteJsonDisponibili();     //aggiorno il file delle auto disponibili
     }
 
+    public static void AddToDisponibiliList(Auto auto) throws IOException {
+        autoDisponibiliList.add(auto);
+        autoNoleggiateList.remove(auto);
+        WriteJsonNoleggiati();      //aggiorno il file delle auto noleggiate
+        WriteJsonDisponibili();     //aggiorno il file delle auto disponibili
+    }
+
     public static void InsertAuto(Auto auto) throws IOException {
         autoDisponibiliList.add(auto);
         AutoManager.WriteJsonDisponibili(); //scrive la lista aggiornata (un auto in piu)
@@ -59,12 +66,11 @@ public class AutoManager {
         return filteredList;
     }
 
-    //TODO: AGGIUNGERE CONTROLLO DELLA TARGA ANCHE PER LE AUTO NOLEGGIATE (MIGLIORARLO)
     public static Boolean IsTargaUsable(String targa){
-        for (Auto auto: autoDisponibiliList){
-            if (auto.getTarga().equals(targa)) return false;
-        }
-        for (Auto auto: autoNoleggiateList){
+        List<Auto> autoTotali = autoNoleggiateList;
+        autoTotali.addAll(autoDisponibiliList);
+
+        for (Auto auto: autoTotali){
             if (auto.getTarga().equals(targa)) return false;
         }
         return true;
@@ -82,10 +88,12 @@ public class AutoManager {
         }
     }
 
+    /*
+    Metodo per scrivere sui rispettivi file la lista delle auto disponibili o noleggiate
+     */
     public static void WriteJsonDisponibili() throws IOException {
         WriteJson(autoDisponibiliList, JsonDisponibiliFilePath);
     }
-
     public static void WriteJsonNoleggiati() throws IOException {
         WriteJson(autoNoleggiateList, JsonNoleggiateFilePath);
     }
@@ -104,20 +112,14 @@ public class AutoManager {
     }
 
     /*
-    Metodo per leggere da file Json e riempire la lista con tutte le auto disponibli
+    Metodo per leggere da file Json e riempire la lista con tutte le auto disponibli o noleggiate
      */
     public static void ReadJsonDisponibili() {
         ReadJson(JsonDisponibiliFilePath, autoDisponibiliList);
     }
-
-    /*
-    Metodo per leggere da file Json e riempire la lista con tutte le auto noleggiate
-    */
     public static void ReadJsonNoleggiati() {
         ReadJson(JsonNoleggiateFilePath, autoNoleggiateList);
     }
-
-
 
     public static void saveAsJSON(){
 

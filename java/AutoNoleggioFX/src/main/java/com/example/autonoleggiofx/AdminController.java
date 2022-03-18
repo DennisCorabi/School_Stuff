@@ -93,13 +93,17 @@ public class AdminController {
 
             alert.setAlertType(Alert.AlertType.INFORMATION);
             LoginButton.setDisable(true);
+
             alert.setContentText("Login effettuato con successo.\nL'area amministrativa è stata sbloccata.");
         }
         else{
             alert.setContentText("Password e/o Email non corretta. Riprova.");
         }
         alert.show();
-        ClearFieldsInLoginPage();       //pulisce i campi dopo l'inserimento dei dati
+
+        //Pulisce i campi dopo l'inserimento dei dati
+        EmailTextField.clear();
+        PasswordTextField.clear();
     }
 
     /*
@@ -112,6 +116,24 @@ public class AdminController {
         InitializeDisponibiliTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
         InitializeChoiceBoxes();
         UpdateTable();      //inserisce le auto disponibili in una tabella
+
+        carTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> ShowCarSelected(newValue));
+    }
+
+    public void ShowCarSelected(Auto auto){
+        try {
+            ProduttoreEditChoiceBox.setValue(auto.getProduttore());
+            ModelloEditTextField.setText(auto.getModello());
+            TargaEditTextField.setText(auto.getTarga());
+            CostoEditTextField.setText(auto.getCostoGiornaliero().toString());
+        }
+        catch (NullPointerException ex){
+            ProduttoreChoiceBox.setValue(null);
+            ModelloTextField.setText("");
+            TargaTextField.setText("");
+            CostoEditTextField.setText("");
+        }
     }
 
     /*
@@ -125,10 +147,6 @@ public class AdminController {
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("DataNoleggio"));
     }
 
-    static void InitializeNoleggiatiTable(){
-
-    }
-
     /*
     Metodo per inserire tutte le possibili opzioni di tutti i menu di scelta
      */
@@ -140,14 +158,6 @@ public class AdminController {
         ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
         FileTypeChoiceBox.setItems(fileTypesObservableList);
 
-    }
-
-    /*
-    Metodo che pulisce i field della tab di login
-     */
-    public void ClearFieldsInLoginPage(){
-        EmailTextField.clear();
-        PasswordTextField.clear();
     }
 
     /*

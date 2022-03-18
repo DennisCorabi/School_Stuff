@@ -19,6 +19,7 @@ public class MainController {
 
     public AnchorPane MainAnchorPane;
 
+
     @FXML
     TableView<Auto> carTable;
 
@@ -34,6 +35,8 @@ public class MainController {
     public Label ModelloValue;
     public Label DataValue;
     public Label ProduttoreValue;
+    public TextField RestituisciTextField;
+
     @FXML
     public void initialize(){
         InitializeTable();
@@ -145,5 +148,23 @@ public class MainController {
         }
     }
 
+    public void RestituisciAuto(){
+        String targa = RestituisciTextField.getText();
+        Auto autoDaRestituire = null;       // FIXME: 18/03/2022 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        for (Auto auto: AutoManager.getAutoNoleggiateList()){
+            if (auto.getTarga().equals(targa))
+                autoDaRestituire = auto;
+        }
 
+        try {
+            AutoManager.AddToDisponibiliList(autoDaRestituire);
+            UpdateTable();
+            alert.setContentText("Restituzione avvenuta con successo.");
+            alert.show();
+        }
+        catch (IOException | NullPointerException ex){
+            System.out.println("Restituzione della macchina non riuscito, riprovare.");
+        }
+    }
 }

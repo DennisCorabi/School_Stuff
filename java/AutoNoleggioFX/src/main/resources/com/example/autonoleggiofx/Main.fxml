@@ -57,5 +57,8 @@
       <Button layoutX="707.0" layoutY="31.0" mnemonicParsing="false" onAction="#OpenAdmin" text="Login" />
       <Button layoutX="490.0" layoutY="388.0" mnemonicParsing="false" onAction="#AddAutoToNoleggiateList" prefHeight="25.0" prefWidth="231.0" text="Noleggia" />
       <Label layoutX="30.0" layoutY="420.0" prefHeight="17.0" prefWidth="203.0" text="Filtra per azienda produttrice" />
+      <Label layoutX="301.0" layoutY="420.0" text="Restituisci auto" />
+      <Button layoutX="458.0" layoutY="444.0" mnemonicParsing="false" text="Restituisci" onAction="#RestituisciAuto"/>
+      <TextField layoutX="297.0" layoutY="444.0" prefHeight="31.0" prefWidth="150.0" fx:id="RestituisciTextField"/>
    </children>
 </AnchorPane>
