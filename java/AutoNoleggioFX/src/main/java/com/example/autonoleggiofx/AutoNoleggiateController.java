@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -25,6 +26,10 @@ public class AutoNoleggiateController {
     @FXML
     public void initialize(){
         AdminController.InitializeDisponibiliTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
+        //se è la prima volta nel programma che visualizzo le auto noleggiate. evita doppie letture del file
+        if (AutoManager.getAutoNoleggiateList().isEmpty())
+            AutoManager.ReadJsonNoleggiati();
+
         UpdateTable();
     }
 

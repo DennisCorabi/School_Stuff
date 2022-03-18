@@ -42,7 +42,7 @@ public class MainController {
         CarInspector(null); //serve per "nascondere" il testo iniziale delle etichette nella descrizione dell'auto
         UpdateTable();
         if (carTable.getItems().isEmpty())  //se si sta caricando la finestra per la prima volta, carico le auto del file nel vettore
-            AutoManager.ReadJson();
+            AutoManager.ReadJsonDisponibili();
 
 
         /*aggiungo un "listener" alla finestra: quando clicco su una riga della tabella, chiamo la funzione "carInspector"
@@ -124,11 +124,8 @@ public class MainController {
         List<Auto> filteredList = AutoManager.getCarsByProduttore(CarModelChoiceBox.getValue());
         ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
         carTable.setItems(filteredObservableList);
-
-
-
-
     }
+
 
     public void AddAutoToNoleggiateList(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -143,6 +140,8 @@ public class MainController {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Devi prima scegliere una macchina nella tabella.");
             alert.show();
+        } catch (IOException e) {
+            System.out.println("Noleggio della macchina non riuscito.");
         }
     }
 

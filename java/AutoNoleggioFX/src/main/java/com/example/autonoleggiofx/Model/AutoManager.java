@@ -10,29 +10,33 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.nio.file.*;
-import java.time.LocalDate;
 import java.util.*;
 
 public class AutoManager {
     private static final List<Auto> autoDisponibiliList = new ArrayList<>();
     private static final List<Auto> autoNoleggiateList = new ArrayList<>();
     private static final Gson gson = new Gson();
-    private static final String JsonFilePath = "src/main/resources/com/example/autonoleggiofx/auto.json";
+    private static final String JsonDisponibiliFilePath = "src/main/resources/com/example/autonoleggiofx/Sources/AutoDisponibili.json";
+    private static final String JsonNoleggiateFilePath = "src/main/resources/com/example/autonoleggiofx/Sources/AutoNoleggiate.json";
     private static final List<Auto.Produttore> choices = new ArrayList<>(){{add(Auto.Produttore.FIAT); add(Auto.Produttore.FERRARI); add(Auto.Produttore.LAMBORGHINI);}};
 
-    public static void AddToNoleggiateList(Auto auto){
+    public static void AddToNoleggiateList(Auto auto) throws IOException {
         //Aggiungo metodo per impostare la data, che ora non ho voglia
         auto.setDataNoleggio("17/03/2022");
         autoDisponibiliList.remove(auto);
         autoNoleggiateList.add(auto);
+        WriteJsonNoleggiati();      //aggiorno il file delle auto noleggiate
+        WriteJsonDisponibili();     //aggiorno il file delle auto disponibili
     }
 
-    public static void InsertAuto(Auto auto) {
+    public static void InsertAuto(Auto auto) throws IOException {
         autoDisponibiliList.add(auto);
+        AutoManager.WriteJsonDisponibili(); //scrive la lista aggiornata (un auto in piu)
     }
 
-    public static void DeleteAuto(Auto auto) {
+    public static void DeleteAuto(Auto auto) throws IOException {
         autoDisponibiliList.remove(auto);
+        WriteJsonDisponibili(); //scrive la lista aggiornata (un auto in meno)
     }
 
     public static List<Auto> getAutoNoleggiateList() {
@@ -55,17 +59,20 @@ public class AutoManager {
         return filteredList;
     }
 
-    //TODO: AGGIUNGERE CONTROLLO DELLA TARGA ANCHE PER LE AUTO NOLEGGIATE
+    //TODO: AGGIUNGERE CONTROLLO DELLA TARGA ANCHE PER LE AUTO NOLEGGIATE (MIGLIORARLO)
     public static Boolean IsTargaUsable(String targa){
         for (Auto auto: autoDisponibiliList){
+            if (auto.getTarga().equals(targa)) return false;
+        }
+        for (Auto auto: autoNoleggiateList){
             if (auto.getTarga().equals(targa)) return false;
         }
         return true;
     }
 
-    public static void WriteJson() throws IOException {
-        String contentToWrite = gson.toJson(autoDisponibiliList);
-        FileWriter fileWriter = new FileWriter(JsonFilePath);
+    public static void WriteJson(List<Auto> autoListToWrite, String filepath) throws IOException {
+        String contentToWrite = gson.toJson(autoListToWrite);
+        FileWriter fileWriter = new FileWriter(filepath);
         try {
             fileWriter.write(contentToWrite);
             fileWriter.close();
@@ -75,30 +82,52 @@ public class AutoManager {
         }
     }
 
-    /*
-    Metodo per leggere da file Json e riempire la lista con tutte le auto
-     */
-    public static void ReadJson() {
+    public static void WriteJsonDisponibili() throws IOException {
+        WriteJson(autoDisponibiliList, JsonDisponibiliFilePath);
+    }
+
+    public static void WriteJsonNoleggiati() throws IOException {
+        WriteJson(autoNoleggiateList, JsonNoleggiateFilePath);
+    }
+
+    private static void ReadJson(String jsonNoleggiateFilePath, List<Auto> autoList) {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(JsonFilePath));
+            Reader reader = Files.newBufferedReader(Paths.get(jsonNoleggiateFilePath));
             JsonArray content = JsonParser.parseReader(reader).getAsJsonArray();
             for (JsonElement jsonObject : content) {
-                InsertAuto(gson.fromJson(jsonObject, Auto.class));
+                autoList.add(gson.fromJson(jsonObject, Auto.class));
             }
+            System.out.println("Lettura del file avvenuta con successo.");
         } catch (IOException ex) {
             System.out.println("Lettura del file non riuscita.");
         }
     }
 
+    /*
+    Metodo per leggere da file Json e riempire la lista con tutte le auto disponibli
+     */
+    public static void ReadJsonDisponibili() {
+        ReadJson(JsonDisponibiliFilePath, autoDisponibiliList);
+    }
+
+    /*
+    Metodo per leggere da file Json e riempire la lista con tutte le auto noleggiate
+    */
+    public static void ReadJsonNoleggiati() {
+        ReadJson(JsonNoleggiateFilePath, autoNoleggiateList);
+    }
+
+
+
     public static void saveAsJSON(){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         try {
-            WriteJson();
+            WriteJson(autoDisponibiliList, JsonDisponibiliFilePath);
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json Files", ".json"));
             File path = fileChooser.showSaveDialog(null);
-            Files.copy(Path.of(JsonFilePath), Path.of(path.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Path.of(JsonDisponibiliFilePath), Path.of(path.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
 
             alert.setContentText("File salvato con successo.");
             alert.show();
@@ -124,8 +153,8 @@ public class AutoManager {
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", ".csv"));
             File CsvFilePath = fileChooser.showSaveDialog(null);
 
-            WriteJson();    //salva la lista delle auto disponibili in un file .json (per poi convertirlo in csv)
-            JsonNode jsonNode = new ObjectMapper().readTree(new File(JsonFilePath));
+            WriteJson(autoDisponibiliList, JsonDisponibiliFilePath);    //salva la lista delle auto disponibili in un file .json (per poi convertirlo in csv)
+            JsonNode jsonNode = new ObjectMapper().readTree(new File(JsonDisponibiliFilePath));
             CsvSchema.Builder csvBuilder = CsvSchema.builder();
             JsonNode firstObject = jsonNode.elements().next();
             firstObject.fieldNames().forEachRemaining(csvBuilder::addColumn);

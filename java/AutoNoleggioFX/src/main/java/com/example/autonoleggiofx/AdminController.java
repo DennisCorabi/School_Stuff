@@ -36,6 +36,12 @@ public class AdminController {
      */
     public Tab AdminTab;
 
+    //modifica una macchina
+    public ChoiceBox<Auto.Produttore> ProduttoreEditChoiceBox;
+    public TextField ModelloEditTextField;
+    public TextField TargaEditTextField;
+    public TextField CostoEditTextField;
+
     //Aggiungi macchina
     public Tab GestisciTab;
     public TextField ModelloTextField;
@@ -49,6 +55,7 @@ public class AdminController {
 
     //rimuovi macchina
     public Button DeleteButton;
+
 
     @FXML
     TableView<Auto> carTable;
@@ -127,10 +134,12 @@ public class AdminController {
      */
     private void InitializeChoiceBoxes(){
         ProduttoreChoiceBox.setItems(FXCollections.observableList(AutoManager.getChoices()));
+        ProduttoreEditChoiceBox.setItems(FXCollections.observableList(AutoManager.getChoices()));
 
         List<String> fileTypesList = new ArrayList<>() {{add("JSON"); add("CSV");}};
         ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
         FileTypeChoiceBox.setItems(fileTypesObservableList);
+
     }
 
     /*
@@ -154,8 +163,9 @@ public class AdminController {
         AutoManager.DeleteAuto(autoToRemove);
         alert.setContentText("Rimozione dell'auto avvenuta con successo.");
         alert.show();
+
         }
-        catch (NullPointerException ex){
+        catch (NullPointerException | IOException ex){
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Seleziona un auto nella tabella prima di continuare.");
             alert.show();
@@ -164,7 +174,7 @@ public class AdminController {
         UpdateTable();      //dopo aver eliminato una macchina, aggiorno la tabella
     }
 
-    public void AddCar(){
+    public void AddCar() throws IOException {       //TODO: Handle NUll pointer exception
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         String modello = ModelloTextField.getText();
@@ -194,6 +204,7 @@ public class AdminController {
             alert.setContentText("Inserimento avvenuto con successo.");
             UpdateTable();
             ClearFieldsInAddCarPage();
+            //add scrittura file, se non non viene salvato le nuove auto
 
         } else {
             alert.setAlertType(Alert.AlertType.INFORMATION);
