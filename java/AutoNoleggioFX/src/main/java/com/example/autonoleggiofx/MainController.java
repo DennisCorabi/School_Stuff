@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -38,15 +39,16 @@ public class MainController {
     public TextField RestituisciTextField;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         InitializeTable();
         InitializeChoiceBox();
         carTable.getItems().clear(); //serve nel momento in cui dalla finestra amministrativa torno nell' area cliente
         CarInspector(null); //serve per "nascondere" il testo iniziale delle etichette nella descrizione dell'auto
-        UpdateTable();
-        if (carTable.getItems().isEmpty())  //se si sta caricando la finestra per la prima volta, carico le auto del file nel vettore
-            AutoManager.ReadJsonDisponibili();
+        ShowAllCars();
 
+        //se si sta caricando la finestra per la prima volta, carico le auto dei file nei rispettivi vettori
+        if (AutoManager.getAutoDisponibiliList().isEmpty()) AutoManager.ReadJsonDisponibili();
+        if (AutoManager.getAutoNoleggiateList().isEmpty()) AutoManager.ReadJsonNoleggiati();
 
         /*aggiungo un "listener" alla finestra: quando clicco su una riga della tabella, chiamo la funzione "carInspector"
         alla funzione passo le info della macchina che ho cliccato.
@@ -68,17 +70,21 @@ public class MainController {
     al posto di scrivere codice, chiamo il metodo statico di un altra classe (anche se non ha molto senso)
      */
     private void InitializeTable(){
-        AdminController.InitializeDisponibiliTable(ProduttoreColumn, ModelloColumn, TargaColumn, CostoColumn, DataColumn);
+            ProduttoreColumn.setCellValueFactory(new PropertyValueFactory<>("Produttore"));
+            ModelloColumn.setCellValueFactory(new PropertyValueFactory<>("Modello"));
+            TargaColumn.setCellValueFactory(new PropertyValueFactory<>("Targa"));
+            CostoColumn.setCellValueFactory(new PropertyValueFactory<>("CostoGiornaliero"));
+            DataColumn.setCellValueFactory(new PropertyValueFactory<>("DataUltimaRestituzione"));
     }
 
     /*
     Metodo che aggiorna la tabella
-    TODO: controllare che sia corretto
      */
     private void UpdateTable(){
 
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
+
         ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoDisponibiliList());
         carTable.setItems(cars);
     }
@@ -93,7 +99,7 @@ public class MainController {
             ModelloValue.setText(car.getModello());
             TargaValue.setText(car.getTarga());
             CostoValue.setText(car.getCostoGiornaliero().toString());
-            DataValue.setText(car.getDataNoleggio());
+            DataValue.setText(car.getDataUltimaRestituzione());
         }
         catch (NullPointerException ex){
             ProduttoreValue.setText("");
@@ -113,7 +119,9 @@ public class MainController {
             MainAnchorPane.getChildren().setAll(pane);
         }
         catch (IOException ex){
-            System.out.println("Il caricamento della pagina non è andato a buon fine.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Il caricamento della pagina non è andato a buon fine, riprovare");
+            alert.show();
         }
     }
 
@@ -121,14 +129,25 @@ public class MainController {
     Metodo per visualizzare nella tabella solo le auto di una marca particolare.
      */
     public void GetCarsByMarca(){
-        ObservableList<Auto> clearList = FXCollections.observableArrayList(new ArrayList<>());
-        carTable.setItems(clearList);
 
-        List<Auto> filteredList = AutoManager.getCarsByProduttore(CarModelChoiceBox.getValue());
-        ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
-        carTable.setItems(filteredObservableList);
+        if (CarModelChoiceBox.getValue()!=null) {
+            ObservableList<Auto> clearList = FXCollections.observableArrayList(new ArrayList<>());
+            carTable.setItems(clearList);
+
+            List<Auto> filteredList = AutoManager.getCarsByProduttore(CarModelChoiceBox.getValue());
+            ObservableList<Auto> filteredObservableList = FXCollections.observableList(filteredList);
+            carTable.setItems(filteredObservableList);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Inserisci una delle opzioni prima di continuare.");
+            alert.show();
+        }
     }
 
+    public void ShowAllCars(){
+        UpdateTable();
+    }
 
     public void AddAutoToNoleggiateList(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -136,6 +155,7 @@ public class MainController {
             Auto auto = carTable.getSelectionModel().getSelectedItem();
             AutoManager.AddToNoleggiateList(auto);
             UpdateTable();
+
             alert.setContentText("Auto noleggiata con successo.");
             alert.show();
 
@@ -143,28 +163,42 @@ public class MainController {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Devi prima scegliere una macchina nella tabella.");
             alert.show();
-        } catch (IOException e) {
-            System.out.println("Noleggio della macchina non riuscito.");
+
+        } catch (IOException ex) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Noleggio della macchina non riuscito, riprovare.");
+            alert.show();
         }
     }
 
     public void RestituisciAuto(){
         String targa = RestituisciTextField.getText();
-        Auto autoDaRestituire = null;       // FIXME: 18/03/2022 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        for (Auto auto: AutoManager.getAutoNoleggiateList()){
-            if (auto.getTarga().equals(targa))
-                autoDaRestituire = auto;
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Inserisci una targa valida prima di continuare");
+
+        if (targa.length() < 8) {
+            alert.show();
+            return;
         }
 
         try {
-            AutoManager.AddToDisponibiliList(autoDaRestituire);
-            UpdateTable();
-            alert.setContentText("Restituzione avvenuta con successo.");
+            // TODO: 20/03/2022 OTTIMIZZARE IL CODICE, CHE COSI' FA CAGARE 
+            for (Auto auto : AutoManager.getAutoNoleggiateList()) {
+                if (auto.getTarga().equals(targa)) {
+                    float costo =AutoManager.AddToDisponibiliList(auto);
+                    UpdateTable();
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Restituzione avvenuta con successo.\nPrezzo da pagare per aver noleggiato la macchina: "+costo+"€ ");
+                    alert.show();
+                    return;
+                }
+            }
+            alert.setContentText("Non è stata trovata un'auto tra quelle noleggiate con questa targa.");
             alert.show();
-        }
-        catch (IOException | NullPointerException ex){
-            System.out.println("Restituzione della macchina non riuscito, riprovare.");
+
+        }catch (NullPointerException| IOException ex) {
+            ex.printStackTrace();
+            alert.setContentText("Restituzione della macchina non riuscita, riprovare.");
+            alert.show();
         }
     }
 }

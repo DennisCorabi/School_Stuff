@@ -4,7 +4,7 @@ module com.example.autonoleggiofx {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.csv;
-
+    requires aspose.cells;
     requires javafx.fxml;
 
 

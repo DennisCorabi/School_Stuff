@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="AdminAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autonoleggiofx.AdminController">
+<AnchorPane fx:id="AdminAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autonoleggiofx.AdminController">
    <children>
-       <TabPane prefHeight="483.0" prefWidth="766.0" tabClosingPolicy="UNAVAILABLE">
+       <TabPane prefHeight="508.0" prefWidth="853.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>
               <Tab text="Login">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <GridPane layoutX="221.0" layoutY="138.0" prefHeight="117.0" prefWidth="325.0">
+                            <GridPane layoutX="264.0" layoutY="138.0" prefHeight="117.0" prefWidth="325.0">
                                 <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="124.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="243.0" />
@@ -28,7 +29,7 @@
                                            <Font size="18.0" />
                                        </font>
                                    </Label>
-                                   <TextField fx:id="EmailTextField" GridPane.columnIndex="1" />
+                                   <TextField fx:id="UserNameTextField" GridPane.columnIndex="1" />
                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="29.0" prefHeight="27.0" prefWidth="187.0" text="Password" GridPane.rowIndex="1">
                                        <font>
                                            <Font size="18.0" />
@@ -37,27 +38,32 @@
                               <PasswordField fx:id="PasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                </children>
                             </GridPane>
-                            <Label alignment="CENTER" layoutX="79.0" layoutY="67.0" prefHeight="45.0" prefWidth="608.0" text="Login">
+                            <Label alignment="CENTER" layoutX="123.0" layoutY="72.0" prefHeight="45.0" prefWidth="608.0" text="Login">
                                 <font>
                                     <Font size="45.0" />
                                 </font>
                             </Label>
-                            <Button fx:id="LoginButton" layoutX="317.0" layoutY="261.0" mnemonicParsing="false" onAction="#Login" prefHeight="31.0" prefWidth="133.0" text="Login" />
+                            <Button fx:id="LoginButton" layoutX="361.0" layoutY="267.0" mnemonicParsing="false" onAction="#Login" prefHeight="31.0" prefWidth="133.0" text="Login" />
+                        <Button layoutX="340.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="Credenziali dimenticate?" onAction="#LoadRecuperoCredenzialiWindow"/>
                         </children>
                      </AnchorPane>
                  </content>
               </Tab>
               <Tab fx:id="AdminTab" disable="true" text="Admin">
                  <content>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="705.0">
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="472.0" prefWidth="848.0">
                         <children>
-                            <TableView fx:id="carTable" layoutX="34.0" layoutY="62.0" prefHeight="330.0" prefWidth="428.0">
+                            <TableView fx:id="carTable" layoutX="34.0" layoutY="69.0" prefHeight="330.0" prefWidth="492.0">
                                 <columns>
                                     <TableColumn fx:id="ProduttoreColumn" prefWidth="75.0" text="Marca" />
                                     <TableColumn fx:id="ModelloColumn" prefWidth="75.0" text="Modello" />
                                     <TableColumn fx:id="TargaColumn" prefWidth="75.0" text="Targa" />
                                     <TableColumn fx:id="CostoColumn" prefWidth="120.0" text="Costo/Giornata" />
-                                    <TableColumn fx:id="DataColumn" prefWidth="83.0" text="Data" />
+                                    <TableColumn fx:id="NoleggiataColumn" prefWidth="83.0" text="Noleggiata" />
+                                      <TableColumn fx:id="DataNoleggioColumn" prefWidth="171.0" text="Data noleggio" />
+                                      <TableColumn fx:id="VolteNoleggiataColumn" prefWidth="107.0" text="Volte noleggiata" />
+                                      <TableColumn fx:id="SecondiNoleggiataColumn" prefWidth="146.0" text="Secondi in noleggio" />
+                                    <TableColumn fx:id="RicavoTotaleColumn" prefWidth="114.0" text="Ricavo totale" />
                                 </columns>
                             </TableView>
                         <Label layoutX="34.0" layoutY="14.0" text="Area amministrativa: Panoramica">
@@ -66,8 +72,8 @@
                            </font>
                         </Label>
                         <Button fx:id="DeleteButton" layoutX="34.0" layoutY="405.0" mnemonicParsing="false" onAction="#DeleteCar" prefHeight="25.0" prefWidth="187.0" text="Rimuovi auto" />
-                        <Button layoutX="248.0" layoutY="405.0" mnemonicParsing="false" onAction="#ShowAutoNoleggiate" prefHeight="25.0" prefWidth="213.0" text="Visualizza auto noleggiate" />
-                        <GridPane layoutX="491.0" layoutY="104.0" prefHeight="237.0" prefWidth="255.0">
+                        <Button layoutX="567.0" layoutY="406.0" mnemonicParsing="false" onAction="#LoadAutoNoleggiateWindow" prefHeight="25.0" prefWidth="187.0" text="Visualizza auto noleggiate" />
+                        <GridPane layoutX="541.0" layoutY="105.0" prefHeight="237.0" prefWidth="255.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="112.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="143.0" />
@@ -89,12 +95,13 @@
                               <TextField fx:id="CostoEditTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Label alignment="CENTER" layoutX="493.0" layoutY="48.0" prefHeight="21.0" prefWidth="236.0" text="Modifica auto">
+                        <Label alignment="CENTER" layoutX="543.0" layoutY="49.0" prefHeight="21.0" prefWidth="236.0" text="Modifica auto">
                            <font>
                               <Font size="27.0" />
                            </font>
                         </Label>
-                        <Button layoutX="519.0" layoutY="352.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="183.0" text="Modifica" />
+                        <Button fx:id="EditCarButton" layoutX="569.0" layoutY="353.0" mnemonicParsing="false" onAction="#EditCar" prefHeight="31.0" prefWidth="183.0" text="Modifica" />
+                        <CheckBox fx:id="ShowDisponibiliCheckBox" layoutX="248.0" layoutY="409.0" mnemonicParsing="false" onAction="#ShowOnlyDisponibili" text="Visualizza solo auto disponibili" />
                         </children>
                      </AnchorPane>
                  </content>
@@ -103,12 +110,12 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="39.0" layoutY="49.0" text="Aggiungi">
+                        <Label layoutX="77.0" layoutY="51.0" text="Aggiungi">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <GridPane layoutX="38.0" layoutY="97.0" prefHeight="210.0" prefWidth="307.0">
+                        <GridPane layoutX="76.0" layoutY="99.0" prefHeight="210.0" prefWidth="307.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="133.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="204.0" />
@@ -118,31 +125,45 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Data noleggio" GridPane.rowIndex="3" />
                               <Label layoutX="10.0" layoutY="24.0" text="Targa" GridPane.rowIndex="2" />
                               <Label layoutX="10.0" layoutY="24.0" text="Modello" GridPane.rowIndex="1" />
                               <Label layoutX="10.0" layoutY="157.0" text="Produttore" />
-                              <Label layoutX="10.0" layoutY="157.0" text="Prezzo/giornata" GridPane.rowIndex="4" />
+                              <Label layoutX="10.0" layoutY="157.0" text="Prezzo/giornata" GridPane.rowIndex="3" />
                               <TextField fx:id="ModelloTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="TargaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="PrezzoTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="PrezzoTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <ChoiceBox fx:id="ProduttoreChoiceBox" prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="1" />
-                              <DatePicker fx:id="DataPicker" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Button layoutX="356.0" layoutY="190.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
-                        <Button layoutX="112.0" layoutY="323.0" mnemonicParsing="false" onAction="#AddCar" prefHeight="19.0" prefWidth="160.0" text="Aggiungi" />
-                        <ChoiceBox fx:id="FileTypeChoiceBox" layoutX="499.0" layoutY="127.0" prefWidth="150.0" />
-                        <Button layoutX="673.0" layoutY="127.0" mnemonicParsing="false" onAction="#saveAsButton" text="Salva" />
-                        <Label layoutX="499.0" layoutY="97.0" prefHeight="21.0" prefWidth="258.0" text="Salva la lista delle auto disponibili" />
+                        <Button layoutX="400.0" layoutY="218.0" mnemonicParsing="false" onAction="#GenerateTarga" text="Genera" />
+                        <Button layoutX="150.0" layoutY="325.0" mnemonicParsing="false" onAction="#AddCar" prefHeight="19.0" prefWidth="160.0" text="Aggiungi" />
+                        <ChoiceBox fx:id="FileTypeChoiceBoxForDisponibili" layoutX="491.0" layoutY="127.0" prefWidth="150.0" />
+                        <Button layoutX="665.0" layoutY="127.0" mnemonicParsing="false" onAction="#SaveDisponibili" text="Salva" />
+                        <Label layoutX="491.0" layoutY="97.0" prefHeight="21.0" prefWidth="258.0" text="Salva la lista delle auto disponibili" />
                         <Label layoutX="491.0" layoutY="49.0" text="Salva">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
+                        <Label layoutX="491.0" layoutY="200.0" prefHeight="21.0" prefWidth="258.0" text="Salva la lista delle auto noleggiate" />
+                        <ChoiceBox fx:id="FileTypeChoiceBoxForNoleggiate" layoutX="491.0" layoutY="230.0" prefWidth="150.0" />
+                        <Button layoutX="665.0" layoutY="230.0" mnemonicParsing="false" onAction="#SaveNoleggiati" text="Salva" />
+                        <GridPane layoutX="439.0" layoutY="350.0" prefHeight="90.0" prefWidth="307.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
                      </children>
                   </AnchorPane>
               </content>
@@ -151,13 +172,14 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="203.0" layoutY="199.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="56.0" prefWidth="162.0" text="Torna alla sezione cliente" />
-                        <Button layoutX="399.0" layoutY="199.0" mnemonicParsing="false" onAction="#Logout" prefHeight="56.0" prefWidth="162.0" text="Disconnettiti" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="92.0" prefHeight="74.0" prefWidth="360.0" text="ESCI">
+                        <Button layoutX="247.0" layoutY="171.0" mnemonicParsing="false" onAction="#ExitAdminPage" prefHeight="56.0" prefWidth="162.0" text="Torna alla sezione cliente" />
+                        <Button layoutX="445.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout" prefHeight="56.0" prefWidth="162.0" text="Disconnettiti" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="80.0" prefHeight="74.0" prefWidth="360.0" text="ESCI">
                            <font>
                               <Font size="45.0" />
                            </font>
                         </Label>
+                        <Button layoutX="346.0" layoutY="246.0" mnemonicParsing="false" onAction="#CloseApplication" prefHeight="56.0" prefWidth="162.0" text="Chiudi programma" />
                      </children>
                   </AnchorPane>
               </content>
