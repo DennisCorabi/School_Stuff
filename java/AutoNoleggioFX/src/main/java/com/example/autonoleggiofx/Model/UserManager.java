@@ -1,6 +1,5 @@
 package com.example.autonoleggiofx.Model;
 
-import com.example.autonoleggiofx.Model.Admin;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -41,6 +40,7 @@ public class UserManager {
             String adminList = gson.toJson(userList);
             FileWriter fileWriter = new FileWriter(userFilePath);
             fileWriter.write(adminList);
+            fileWriter.close();
             System.out.println("Scrittura delle utenze avvenuta con successo.");
         }
         catch (IOException ex){
@@ -57,6 +57,38 @@ public class UserManager {
         }
         return false;
     }
+
+    public static String RecuperaPassword(String username){
+        for (Admin admin : userList) {
+            if (admin.getUserName().equals(username))
+                return admin.getPassword();
+        }
+        return null;
+    }
+
+    public static Boolean ModificaPassword(String username, String currentPassword, String newPassword){
+        for (Admin admin: userList){
+            if (admin.getUserName().equals(username) && admin.getPassword().equals(currentPassword)) {
+                admin.setPassword(newPassword);
+                WriteJson();
+                return true;
+            }
+        }
+        return false;
+    }
+    public static Boolean ModificaUsername(String CurrentUsername, String currentPassword, String newUsername){
+        for (Admin admin: userList){
+            if (admin.getUserName().equals(CurrentUsername) && admin.getPassword().equals(currentPassword)) {
+                admin.setUserName(newUsername); // FIXME: 21/03/2022 
+                WriteJson();
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 
     public static String getAdminKey() {
         return ADMIN_KEY;
