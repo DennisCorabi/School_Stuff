@@ -46,7 +46,6 @@ public class UserManager {
             FileWriter fileWriter = new FileWriter(userFilePath);
             fileWriter.write(adminList);        //scrittura file
             fileWriter.close();
-            System.out.println("Scrittura delle utenze avvenuta con successo.");
         }
         catch (IOException ex){
             System.out.println("Scrittura del file utenze non riuscita.");
@@ -80,9 +79,9 @@ public class UserManager {
     /*
     Metodo che permette di modificare la password di un utente
      */
-    public static Boolean ModificaPassword(String username, String currentPassword, String newPassword){
+    public static Boolean ModificaPassword(Admin adminToReplace, String newPassword){
         for (Admin admin: userList){        //controlla che l'utente inserito (password + username) sia associato ad un utente
-            if (admin.getUserName().equals(username) && admin.getPassword().equals(currentPassword)) {
+            if (admin.getUserName().equals(adminToReplace.getUserName()) && admin.getPassword().equals(adminToReplace.getPassword())) {
                 admin.setPassword(newPassword);     //setto la nuova password
                 WriteJson();    //aggiorno il file
                 return true;
@@ -94,10 +93,10 @@ public class UserManager {
     /*
     Metodo che permette di modificare il nome utente di un utente.
      */
-    public static Boolean ModificaUsername(String CurrentUsername, String currentPassword, String newUsername){
+    public static Boolean ModificaUsername(Admin adminToReplace, String newUsername){
         userList.forEach(System.out::println);
         for (Admin admin: userList){        //controlla che l'utente inserito (password + username) sia associato ad un utente
-            if (admin.getUserName().equals(CurrentUsername) && admin.getPassword().equals(currentPassword)) {
+            if (admin.getUserName().equals(adminToReplace.getUserName()) && admin.getPassword().equals(adminToReplace.getPassword())) {
                 admin.setUserName(newUsername); //  setto il nuovo nome utente FIXME: 21/03/2022
                 WriteJson();        //aggiorno il file
                 return true;
