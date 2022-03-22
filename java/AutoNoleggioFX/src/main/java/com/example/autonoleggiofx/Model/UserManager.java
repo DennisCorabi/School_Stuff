@@ -95,6 +95,7 @@ public class UserManager {
     Metodo che permette di modificare il nome utente di un utente.
      */
     public static Boolean ModificaUsername(String CurrentUsername, String currentPassword, String newUsername){
+        userList.forEach(System.out::println);
         for (Admin admin: userList){        //controlla che l'utente inserito (password + username) sia associato ad un utente
             if (admin.getUserName().equals(CurrentUsername) && admin.getPassword().equals(currentPassword)) {
                 admin.setUserName(newUsername); //  setto il nuovo nome utente FIXME: 21/03/2022
@@ -104,9 +105,6 @@ public class UserManager {
         }
         return false;
     }
-
-
-
 
     public static String getAdminKey() {
         return ADMIN_KEY;

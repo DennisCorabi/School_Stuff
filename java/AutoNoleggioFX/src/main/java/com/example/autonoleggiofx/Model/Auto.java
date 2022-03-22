@@ -15,7 +15,7 @@ public class Auto {
     private Float costoGiornaliero;
     private Integer volteNoleggiate = 0;
     private long secondiInNoleggio = 0;
-    private long ricavoTotale = 0;
+    private long ricavoTotale = 0L;
 
     public enum Produttore {
         FIAT, FERRARI, LAMBORGHINI

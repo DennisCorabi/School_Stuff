@@ -68,13 +68,12 @@ public class AdminController {
     public TableColumn<Auto, String> DataNoleggioColumn;
     public TableColumn<Auto, Long> SecondiNoleggiataColumn;
     public TableColumn<Auto, Integer> VolteNoleggiataColumn;
-    public TableColumn<Auto, Float> RicavoTotaleColumn;
+    public TableColumn<Auto, Long> RicavoTotaleColumn;
 
 
     @FXML
     public void initialize(){
         UserManager.ReadJson();
-        UserManager.getUserList().forEach(System.out::println);
     }
 
     /*
@@ -249,6 +248,10 @@ public class AdminController {
             String costo = CostoEditTextField.getText();
             AutoManager.EditAuto(index, produttore, modello, targa, Float.parseFloat(costo));       //passo i parametri nella funzione
             AutoManager.getAuto().forEach(System.out::println);
+
+            ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
+            carTable.setItems(clearObservableList);
+
             UpdateTable(AutoManager.getAuto());     //dopo aver modificato un auto, aggiorno la tabella todo: non aggiorna la tabella
         }
         //se non compilo correttamente tutti i campi o non sono stati compilati correttamente
