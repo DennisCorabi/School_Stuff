@@ -28,7 +28,7 @@ public class Auto {
         this.costoGiornaliero = costoGiornaliero;
     }
 
-    //TODO: implementare anche l'uso di questo costruttore (in base a se la targa è inserita o no);
+
     public Auto(String targa, Produttore produttore, String modello, Float costoGiornaliero) {
         this.targa = targa;
         this.produttore = produttore;
@@ -36,7 +36,7 @@ public class Auto {
         this.costoGiornaliero = costoGiornaliero;
     }
 
-
+    //Genero in formato di stringa la data corrente.
     private String InsertDate() {
         LocalDateTime dateNow = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -46,18 +46,24 @@ public class Auto {
 
     public void setDataUltimaRestituzione() {
         this.dataUltimaRestituzione = InsertDate();
-        this.isNoleggiata=false; //se inserisco la data in cui è stata restituita, allora si presuppone che essa sia stata restituita
+        this.isNoleggiata=false;    //se inserisco la data in cui è stata restituita, allora si presuppone che essa sia stata restituita
     }
 
     public void clearDataNoleggio(){
         this.dataNoleggio="Non noleggiata";
     }
 
+    /*
+    Metodo per generare una targa  univoca di 8 caratteri
+     */
     public static String generateTarga(){
         Random random = new Random();
         StringBuilder targa = new StringBuilder();
         final int GRANDEZZA_TARGA=8;
 
+        // 2 CARATTERI: lettere maiuscole
+        //3 CARATTERI: numeri
+        //3 CARATTERI: lettere maiuscole
         do {
             for (int i = 0; i < GRANDEZZA_TARGA; i++) {
                 if (i < 2 || i > 4) targa.append((char) random.nextInt(65, 90));
@@ -111,14 +117,19 @@ public class Auto {
     public void setCostoGiornaliero(Float costoGiornaliero) {
         this.costoGiornaliero = costoGiornaliero;
     }
+
+    //metodo che mi incrementa i secondi di utilizzo di questa macchina. serve per determinate la macchina più utilizzata
     public void increaseSecondiInNoleggio(long secondi) {
         this.secondiInNoleggio+=secondi;
         this.ricavoTotale+= secondi*(costoGiornaliero/86400L);       //già che ci sono, ogni qualvolta questa funzione viene chiamata (ovvero quando la macchina viene restituita), incremento il ricavo totale.
     }
+
+    //metodo che mi incrementa il numero di volte che è stata utilizzata la macchina.
     public void increaseVolteNoleggiate() {
         this.volteNoleggiate++;
     }
 
+    //metood che mi detta la nuova
     public void setNewDataNoleggio(){
         this.dataNoleggio = InsertDate();
         this.isNoleggiata=true;     //se inserisco la data in cui è stata noleggiata, allora si presuppone che essa sia noleggiata

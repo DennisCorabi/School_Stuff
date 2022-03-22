@@ -25,14 +25,12 @@ import java.util.Objects;
 public class AdminController {
 
     public AnchorPane AdminAnchorPane;
-
     /*
     LOGIN TAB
      */
     public TextField PasswordTextField;
     public TextField UserNameTextField;
     public Button LoginButton;
-
     /*
     ADMIN TAB
      */
@@ -59,8 +57,6 @@ public class AdminController {
     //rimuovi macchina
     public Button DeleteButton;
 
-
-
     @FXML
     TableView<Auto> carTable;
 
@@ -73,10 +69,7 @@ public class AdminController {
     public TableColumn<Auto, Long> SecondiNoleggiataColumn;
     public TableColumn<Auto, Integer> VolteNoleggiataColumn;
     public TableColumn<Auto, Float> RicavoTotaleColumn;
-    /*
-    Metodo che gestisce la pagina di login: controlla che le credenziali siano corrette, che i campi siano compilati correttamente.
-    Se le credenziali sono corrette, allora chiama un metodo per inizializzare la parte amministrativa.
-     */
+
 
     @FXML
     public void initialize(){
@@ -84,6 +77,10 @@ public class AdminController {
         UserManager.getUserList().forEach(System.out::println);
     }
 
+    /*
+   Metodo che gestisce la pagina di login: controlla che le credenziali siano corrette, che i campi siano compilati correttamente.
+   Se le credenziali sono corrette, allora chiama un metodo per inizializzare la parte amministrativa.
+    */
     public void Login(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login effettuato con successo.\nL'area amministrativa è stata sbloccata.");
         Admin userLogin = new Admin(UserNameTextField.getText(),PasswordTextField.getText());
@@ -106,17 +103,21 @@ public class AdminController {
      */
     private void InitializeTabs(){
         LoginButton.setDisable(true);
-        AdminTab.setDisable(false);
+        AdminTab.setDisable(false);             //disattivo tutte quelle tabs e oggetti inutili dopo aver fatto la login
         GestisciTab.setDisable(false);
 
-        InitializeAutoTable();
-        InitializeChoiceBoxes();
-        UpdateTable(AutoManager.getAuto());      //inserisce le auto disponibili in una tabella;
+        InitializeAutoTable();      //inizializzo le tabelle
+        InitializeChoiceBoxes();    //inizializzo i menu di scelta
+        UpdateTable(AutoManager.getAuto());      //inserisce tutte le auto (disponibili + noleggiate) in una tabella;
 
+        //aggiungo un listener per chiamare una funzione ogni qualvolta seleziono una riga non vuota della tabella
         carTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> ShowCarSelected(newValue));
     }
 
+    /*
+    Metodo per visualizzare l'auto selezionata nella tabella. viene chiamato quando seleziono un auto
+     */
     public void ShowCarSelected(Auto auto){
         try {
             ProduttoreEditChoiceBox.setValue(auto.getProduttore());
@@ -128,7 +129,8 @@ public class AdminController {
             EditCarButton.setDisable(auto.getNoleggiata());
             DeleteButton.setDisable(auto.getNoleggiata());
         }
-        catch (NullPointerException ex){        //se per qualche motivo l'auto selezionata non è più disponibile, svuoto tutti i campi delle informazioni
+        //se per qualche motivo l'auto selezionata non è più disponibile, svuoto tutti i campi delle informazioni
+        catch (NullPointerException ex){
             ProduttoreChoiceBox.setValue(null);
             ModelloTextField.setText("");
             TargaTextField.setText("");
@@ -137,7 +139,7 @@ public class AdminController {
     }
 
     /*
-    Metodo che inizializza una tabella: mappa le colonne in modo che siano legate a un solo parametro della classe AUTO
+    Metodo che inizializza una tabella: mappa le colonne in modo che siano legate a un solo parametro della classe auto
      */
     public void InitializeAutoTable(){
         ProduttoreColumn.setCellValueFactory(new PropertyValueFactory<>("Produttore"));
@@ -155,9 +157,13 @@ public class AdminController {
     Metodo per inserire tutte le possibili opzioni di tutti i menu di scelta
      */
     private void InitializeChoiceBoxes(){
+
+        //menu di scelta usato per aggiungere un auto
         ProduttoreChoiceBox.setItems(FXCollections.observableList(AutoManager.getChoices()));
+        //menu di scelta usato per modifcare un auto
         ProduttoreEditChoiceBox.setItems(FXCollections.observableList(AutoManager.getChoices()));
 
+        //menu di scelta usato per decidere il formato in cui salvare le auto disponibili o noleggiate
         List<String> fileTypesList = new ArrayList<>() {{add("JSON"); add("CSV");}};
         ObservableList<String> fileTypesObservableList = FXCollections.observableList(fileTypesList);
         FileTypeChoiceBoxForDisponibili.setItems(fileTypesObservableList);
@@ -168,79 +174,97 @@ public class AdminController {
     /*
     Metodo che elimina una macchina tra quelle disponibili
      */
-
     public void DeleteCar(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Rimozione dell'auto avvenuta con successo.");
-
         try{
-        Auto autoToRemove = carTable.getSelectionModel().getSelectedItem();
-        AutoManager.DeleteAuto(autoToRemove);
+            Auto autoToRemove = carTable.getSelectionModel().getSelectedItem();     //ottengo l'auto selezionata nella tabella (quella da rimuovere)
+            if (autoToRemove==null) throw new NullPointerException();
+            AutoManager.DeleteAuto(autoToRemove);
+            UpdateTable(AutoManager.getAuto());      //dopo aver eliminato una macchina, aggiorno la tabella
         }
+
+        //se clicco il bottone senza aver selezionato un auto
         catch (NullPointerException | IOException ex){
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Seleziona un auto nella tabella prima di continuare.");
         }
         alert.show();
-        UpdateTable(AutoManager.getAuto());      //dopo aver eliminato una macchina, aggiorno la tabella
+
     }
 
+    /*
+    Metodo per aggiungerere un auto nella lista disponibili
+     */
     public void AddCar() throws IOException {       //TODO: Handle NUll pointer exception
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Inserimento avvenuto con successo.");
-
         try {
             String modello = ModelloTextField.getText();
             String targa = TargaTextField.getText();
             Float costo = Float.parseFloat(PrezzoTextField.getText());
-            Auto auto = new Auto(targa, ProduttoreChoiceBox.getValue(), modello, costo);
+            Auto auto = new Auto(targa, ProduttoreChoiceBox.getValue(), modello, costo);    //creo l'oggetto della macchina da creare
 
             //controllo che la targa abbia otto caratteri
             if (targa.length() != 8) {
+                // TODO: 22/03/2022 Come nel main controller, implemento un controllo della targa
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("La targa deve avere 8 caratteri.");
                 alert.show();
                 return;
             }
 
+            //se non ho scelto nessun produttore, manda una exception
             if (ProduttoreChoiceBox.getValue()==null) throw new NullPointerException();
+
+            //controllo che la targa sia disponibile (che non ci siano auto disponibili o noleggiate che abbiamo la medesima targa)
             if (AutoManager.IsTargaUsable(auto.getTarga())) {
                 AutoManager.InsertAuto(auto);
-                UpdateTable(AutoManager.getAuto());
-                ClearFieldsInAddCarPage();
+                UpdateTable(AutoManager.getAuto());     //dopo aver aggiunto la macchina, aggiorno la tabella
+                ClearFieldsInAddCarPage();      //dopo aver aggiunto la macchina, pulisco tutti campi di inserimento
 
-            } else {
+            }
+            //se è presente una macchina con la stessa targa
+            else {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("E' già presente una macchina con questa targa: " + auto.getTarga());
             }
-
+        //se non ho compilato correttamente tutti i campi
         }catch (NullPointerException | NumberFormatException ex){
             alert.setContentText("Compila tutti i campi ed inserisci valori validi prima di continuare.");
         }
-
         alert.show();
     }
 
+    /*
+    Metodo che permette di modificare un auto tra quelle disponibii
+     */
     public void EditCar(){
         Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona una macchina e compila correttamente tutti i campi prima di continuare.");
         try {
+            //ottengo l'indice nella lista disponibili dell'auto selezionata nella tabella
             int index = AutoManager.getAutoDisponibiliList().indexOf(carTable.getSelectionModel().getSelectedItem());
             Auto.Produttore produttore = ProduttoreEditChoiceBox.getValue();
             String modello = ModelloEditTextField.getText();
             String targa = TargaEditTextField.getText();
             String costo = CostoEditTextField.getText();
-            AutoManager.EditAuto(index, produttore, modello, targa, Float.parseFloat(costo));
+            AutoManager.EditAuto(index, produttore, modello, targa, Float.parseFloat(costo));       //passo i parametri nella funzione
             AutoManager.getAuto().forEach(System.out::println);
-            UpdateTable(AutoManager.getAuto());
+            UpdateTable(AutoManager.getAuto());     //dopo aver modificato un auto, aggiorno la tabella todo: non aggiorna la tabella
         }
+        //se non compilo correttamente tutti i campi o non sono stati compilati correttamente
         catch (NumberFormatException | IndexOutOfBoundsException ex){
             alert.show();
         }
+        //se per qualche motivo a me sconosciuto la modifica dell'auto non va a buon fine
         catch (IOException ex){
             alert.setContentText("Modifica dell'auto non andata a buon fine.");
             alert.show();
         }
     }
 
+    /*
+    Metodo per pulire i campi relativi all'inserimento dei parametri dell'auto da creare
+     */
     public void ClearFieldsInAddCarPage(){
         ProduttoreChoiceBox.setValue(null);
         ModelloTextField.clear();
@@ -248,6 +272,9 @@ public class AdminController {
         PrezzoTextField.clear();
     }
 
+    /*
+    Metodo che chiama un altro metodo che genera una targa univoca di 8 caratteri
+     */
     public void GenerateTarga(){
         TargaTextField.setText(Auto.generateTarga());
     }
@@ -255,20 +282,22 @@ public class AdminController {
     /*
     Metodo che aggiorna la tabella
      */
-
     public void UpdateTable(List<Auto> autoList){
 
+        //se voglio mostrare la lista completa delle auto, prima setto a false il menu vero/falso
         if (autoList.equals(AutoManager.getAuto())) ShowDisponibiliCheckBox.setSelected(false);
 
+        //prima pulisco la tabella inserendo una tabella vuota
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
 
+        //dopo inserisco nella tabella passata come argomento della funzione
         ObservableList<Auto> carObservableList = FXCollections.observableList(autoList);
         carTable.setItems(carObservableList);
     }
 
     /*
-    Metodo per salvare tutte le auto disponibili o noleggiate in un file JSON o CSV
+    Metodo per salvare tutte le auto disponibili in un file JSON o CSV
      */
     public void SaveDisponibili() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Scegli il formato del file da salvare prima di continuare.");
@@ -278,15 +307,20 @@ public class AdminController {
                 case "CSV" -> AutoManager.SaveCsvDisponibili();
             }
         }
+        //Se il file è vuoto, non lo salva (SERVE SOLO PER IL CSV, un tipo di file che non permette di salvare liste vuote
         catch (NoSuchElementException ex){
-
             alert.setContentText("Il file è vuoto. non è stato possibile salvarlo.");
             alert.show();
         }
+        //se non ho selezionato il formato del file prima di cliccare il bottone
         catch (NullPointerException ex){
             alert.show();
         }
     }
+
+    /*
+    Metodo per salvare la lista delle auto noleggiate: in un tutto e per tutto identico al salvataggio delle auto disponibili
+     */
     public void SaveNoleggiati(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         try {
@@ -314,12 +348,15 @@ public class AdminController {
         else UpdateTable(AutoManager.getAuto());
     }
 
+    /*
+    Metodo per caricare una finestra
+     */
     private void LoadWindow(String fxmlName, String windowTitle){
         Parent root;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlName)));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlName)));   //nome del file .fxml da caricare
             Stage stage = new Stage();
-            stage.setTitle(windowTitle);
+            stage.setTitle(windowTitle);        //nome della finestra da caricare
             stage.setScene(new Scene(root));
             stage.show();
         }
@@ -327,6 +364,8 @@ public class AdminController {
             System.out.println("Caricamento della finestra fallito.");
         }
     }
+
+    //Metodi per caricare la finestra delle auto noleggiate o quella del recupero credenziali
     public void LoadAutoNoleggiateWindow(){
         LoadWindow("AutoNoleggiate.fxml", "Auto Noleggiate");
     }
@@ -334,12 +373,13 @@ public class AdminController {
         LoadWindow("UserSupport.fxml", "Recupero Credenziali");
     }
 
+
     /*
     Metodo che dalla pagina admin torna alla pagina del cliente.
      */
     public void ExitAdminPage(){
         try{
-            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main.fxml")));     //seleziona una nuova scena
+            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main.fxml")));     //seleziono la scena principale
             AdminAnchorPane.getChildren().setAll(pane);     //carica sulla stessa finestra la nuova scena
         }
         catch (IOException ex){
@@ -348,6 +388,9 @@ public class AdminController {
 
     }
 
+    /*
+    Metodo che ricarica la pagina amministrativa, simulando quindi una disconnessione TODO: merge with ExitAdminPage
+     */
     public void Logout(){
         try {
             AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
@@ -358,6 +401,9 @@ public class AdminController {
         }
     }
 
+    /*
+    Metodo che semplicemente esce dal programma
+     */
     public void CloseApplication(){
         Platform.exit();
     }

@@ -82,16 +82,18 @@ public class MainController {
      */
     private void UpdateTable(){
 
+        //prima svuoto la tabella riempiendola con una lista vuota
         ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
         carTable.setItems(clearObservableList);
 
+        //dopo visualizzo la lista delle auto disponibili
         ObservableList<Auto> cars = FXCollections.observableList(AutoManager.getAutoDisponibiliList());
         carTable.setItems(cars);
     }
 
     /*
     Metodo per visualizzare le informazioni dell'auto cliccata sulla tabella.
-    Le info vengono visualizzate in una grid pane a lato della tabella.
+    Le info vengono visualizzate in una grid pane a lato della di quest'ultima.
      */
     private void CarInspector(Auto car){
         try {
@@ -101,6 +103,7 @@ public class MainController {
             CostoValue.setText(car.getCostoGiornaliero().toString());
             DataValue.setText(car.getDataUltimaRestituzione());
         }
+        //Se per qualche motivo a me sconosciuto, l'auto selezionata non è più disponibile, svuota la selezione
         catch (NullPointerException ex){
             ProduttoreValue.setText("");
             ModelloValue.setText("");
@@ -111,10 +114,11 @@ public class MainController {
     }
 
     /*
-    Metodo per caricare, sulla medesima finestra, la parte del programma destinata a essere utilizzata dall'amministratore dell'azienda.
+    Metodo per caricare sulla medesima finestra la parte del programma destinata a essere utilizzata dagli amministratori dell'azienda.
      */
     public void OpenAdmin(){
         try{
+            //carica il nuovo file .fxml nella stessa finestra (non creandone un'altra)
             AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
             MainAnchorPane.getChildren().setAll(pane);
         }
@@ -130,6 +134,7 @@ public class MainController {
      */
     public void GetCarsByMarca(){
 
+        //se si clicca sul bottone dopo aver selezionato una categoria, mostra solo le auto del produttore scelto.
         if (CarModelChoiceBox.getValue()!=null) {
             ObservableList<Auto> clearList = FXCollections.observableArrayList(new ArrayList<>());
             carTable.setItems(clearList);
@@ -145,20 +150,27 @@ public class MainController {
         }
     }
 
+    /*
+    Metodo che permette di visualizzare tutte le auto disponibili nell'autonoleggio
+     */
     public void ShowAllCars(){
-        UpdateTable();
+        UpdateTable();      //semplicemente chiamo la medesima funzione che viene chiamata quando viene caricata la finestra
     }
 
+    /*
+    Metodo che permette di noleggiare un auto tra quelle disponibili
+     */
     public void AddAutoToNoleggiateList(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         try {
-            Auto auto = carTable.getSelectionModel().getSelectedItem();
+            Auto auto = carTable.getSelectionModel().getSelectedItem();     //prende l'auto selezionata nel momento in cui clicco sul bottone
             AutoManager.AddToNoleggiateList(auto);
-            UpdateTable();
+            UpdateTable();      //mostro la tabella, ora aggiornata (senza la macchina appena noleggiata)
 
-            alert.setContentText("Auto noleggiata con successo.");
+            alert.setContentText("Auto noleggiata con successo.");          //feedback
             alert.show();
 
+            //se clicco sul bottone senza aver selezionato una macchina (riga
         }catch (NullPointerException ex){
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Devi prima scegliere una macchina nella tabella.");
@@ -170,22 +182,28 @@ public class MainController {
             alert.show();
         }
     }
-
+    /*
+    Metodo per restituire, attraverso l'inserimento della targa, di una macchina noleggiata
+     */
     public void RestituisciAuto(){
         String targa = RestituisciTextField.getText();
         Alert alert = new Alert(Alert.AlertType.ERROR, "Inserisci una targa valida prima di continuare");
 
+        //se la targa inserita non rispetta le regole di sintassi
+        // TODO: 22/03/2022 Aggiungere controllo che la targa rispetti il formato standard
         if (targa.length() < 8) {
             alert.show();
             return;
         }
 
         try {
-            // TODO: 20/03/2022 OTTIMIZZARE IL CODICE, CHE COSI' FA CAGARE 
+            // TODO: 20/03/2022 OTTIMIZZARE IL CODICE, CHE COSI' FA CAGARE
+
+            //controllo che la targa inserita sia associata ad una macchina tra quelle noleggiate
             for (Auto auto : AutoManager.getAutoNoleggiateList()) {
                 if (auto.getTarga().equals(targa)) {
-                    float costo =AutoManager.AddToDisponibiliList(auto);
-                    UpdateTable();
+                    float costo =AutoManager.AddToDisponibiliList(auto);        //ottengo il prezzo da pagare per l'uso della macchina
+                    UpdateTable();  //mostro la tabella aggiornata (ora con un auto in più)
                     alert.setAlertType(Alert.AlertType.INFORMATION);
                     alert.setContentText("Restituzione avvenuta con successo.\nPrezzo da pagare per aver noleggiato la macchina: "+costo+"€ ");
                     alert.show();
