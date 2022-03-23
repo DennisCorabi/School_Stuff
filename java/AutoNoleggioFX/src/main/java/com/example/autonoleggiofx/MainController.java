@@ -205,7 +205,7 @@ public class MainController {
                     float costo =AutoManager.AddToDisponibiliList(auto);        //ottengo il prezzo da pagare per l'uso della macchina
                     UpdateTable();  //mostro la tabella aggiornata (ora con un auto in più)
                     alert.setAlertType(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Restituzione avvenuta con successo.\nPrezzo da pagare per aver noleggiato la macchina: "+costo+"€ ");
+                    alert.setContentText("Restituzione avvenuta con successo.\nPrezzo da pagare per aver noleggiato la macchina:\n"+costo+"€ ");
                     alert.show();
                     return;
                 }

@@ -28,7 +28,7 @@ public class AdminController {
     /*
     LOGIN TAB
      */
-    public TextField PasswordTextField;
+    public TextField PasswordToLoginTextField;
     public TextField UserNameTextField;
     public Button LoginButton;
     /*
@@ -54,8 +54,13 @@ public class AdminController {
     //salva una macchina
     public ChoiceBox<String> FileTypeChoiceBoxForDisponibili;
     public ChoiceBox<String> FileTypeChoiceBoxForNoleggiate;
-    //rimuovi macchina
+    //rimuovi macchinate
     public Button DeleteButton;
+
+
+    //Aggiungi o rimuovi amministratore
+    public TextField UsernameTextField;
+    public TextField PasswordTextField;
 
     @FXML
     TableView<Auto> carTable;
@@ -82,7 +87,7 @@ public class AdminController {
     */
     public void Login(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login effettuato con successo.\nL'area amministrativa è stata sbloccata.");
-        Admin userLogin = new Admin(UserNameTextField.getText(),PasswordTextField.getText());
+        Admin userLogin = new Admin(UserNameTextField.getText(), PasswordToLoginTextField.getText());
 
         //controlla che siano state inserite le credenziali corrette.
         if (UserManager.Login(userLogin)) InitializeTabs();
@@ -94,7 +99,7 @@ public class AdminController {
 
         //Pulisce i campi dopo l'inserimento dei dati
         UserNameTextField.clear();
-        PasswordTextField.clear();
+        PasswordToLoginTextField.clear();
     }
 
     /*
