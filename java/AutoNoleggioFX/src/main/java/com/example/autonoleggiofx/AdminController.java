@@ -29,7 +29,7 @@ public class AdminController {
     LOGIN TAB
      */
     public TextField PasswordToLoginTextField;
-    public TextField UserNameTextField;
+    public TextField UserNameLoginTextField;
     public Button LoginButton;
     /*
     ADMIN TAB
@@ -59,8 +59,8 @@ public class AdminController {
 
 
     //Aggiungi o rimuovi amministratore
-    public TextField UsernameTextField;
-    public TextField PasswordTextField;
+    public TextField UsernameAddTextField;
+    public TextField PasswordAddTextField;
 
     @FXML
     TableView<Auto> carTable;
@@ -87,7 +87,7 @@ public class AdminController {
     */
     public void Login(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login effettuato con successo.\nL'area amministrativa è stata sbloccata.");
-        Admin userLogin = new Admin(UserNameTextField.getText(), PasswordToLoginTextField.getText());
+        Admin userLogin = new Admin(UserNameLoginTextField.getText(), PasswordToLoginTextField.getText());
 
         //controlla che siano state inserite le credenziali corrette.
         if (UserManager.Login(userLogin)) InitializeTabs();
@@ -98,7 +98,7 @@ public class AdminController {
         alert.show();
 
         //Pulisce i campi dopo l'inserimento dei dati
-        UserNameTextField.clear();
+        UserNameLoginTextField.clear();
         PasswordToLoginTextField.clear();
     }
 
@@ -252,12 +252,7 @@ public class AdminController {
             String targa = TargaEditTextField.getText();
             String costo = CostoEditTextField.getText();
             AutoManager.EditAuto(index, produttore, modello, targa, Float.parseFloat(costo));       //passo i parametri nella funzione
-            AutoManager.getAuto().forEach(System.out::println);
-
-            ObservableList<Auto> clearObservableList = FXCollections.observableArrayList(new ArrayList<>());
-            carTable.setItems(clearObservableList);
-
-            UpdateTable(AutoManager.getAuto());     //dopo aver modificato un auto, aggiorno la tabella todo: non aggiorna la tabella
+            UpdateTable(AutoManager.getAuto());     //dopo aver modificato un auto, aggiorno la tabella
         }
         //se non compilo correttamente tutti i campi o non sono stati compilati correttamente
         catch (NumberFormatException | IndexOutOfBoundsException ex){
@@ -345,6 +340,50 @@ public class AdminController {
             alert.setContentText("Scegli il formato del file da salvare prima di continuare.");
             alert.show();
         }
+    }
+
+    public void AddUtente(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Utente aggiunto correttamente.");
+        String userName = UsernameAddTextField.getText().isEmpty() ? null: UsernameAddTextField.getText().trim();
+        String password = PasswordAddTextField.getText().isEmpty() ? null: PasswordAddTextField.getText();
+
+        try {
+            if (userName == null || password == null) throw new NullPointerException();
+            Admin userToAdd = new Admin(userName,password);
+            UserManager.AddUser(userToAdd);
+
+        }catch (NullPointerException ex){
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Compila tutti i campi prima di continuare.");
+        }
+        clearFieldsInGestioneUtenze();
+        alert.show();
+    }
+
+    public void RemoveUtente(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Utente eliminato correttamente.");
+        String userName = UsernameAddTextField.getText().isEmpty() ? null: UsernameAddTextField.getText().trim();
+        String password = PasswordAddTextField.getText().isEmpty() ? null: PasswordAddTextField.getText();
+        try {
+            if (userName == null || password == null) throw new NullPointerException();
+            Admin userToRemove = new Admin(userName,password);
+            if (!UserManager.RemoveUser(userToRemove)){
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("Non è stato trovato alcun utente con le credenziali inserite da eliminare, riprova.");
+            }
+
+        }catch (NullPointerException ex){
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Compila tutti i campi prima di continuare.");
+
+        }
+        clearFieldsInGestioneUtenze();
+        alert.show();
+    }
+
+    private void clearFieldsInGestioneUtenze(){
+        UsernameAddTextField.clear();
+        PasswordAddTextField.clear();
     }
 
     /*

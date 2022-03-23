@@ -97,7 +97,7 @@ public class AutoManager {
     Metodo che permette di modificare i parametri di un auto tra quelle al momento disponibili
      */
     public static void EditAuto(int index, Auto.Produttore produttore, String modello, String targa, float costo) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Modifica dell'auto avvenuta con successo.");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Modifica dell'auto avvenuta con successo. Ricarica la pagina per visualizzare le modifiche.\"");
         Auto autoToEdit = AutoManager.getAutoDisponibiliList().get(index);
         autoToEdit.setProduttore(produttore);
         autoToEdit.setModello(modello);             //aggiorno i parametri
@@ -108,6 +108,9 @@ public class AutoManager {
         else alert.setContentText("Targa inserita non disponibile. non è stata modificata.");
         WriteJsonDisponibili(); //aggiorno il file, ora con la macchina modificata
         alert.show();
+
+        //IMPORTANTE: NON SI AGGIORNA LA TABELLA, MENTRE LA LISTA ED IL FILE SI. NON SO PERCHE' FACCIA COSI', PER QUESTO DEVO CHIEDERE ALL'UTENTE DI USCIRE E RIENTRARE DALLA FINESTRA-
+        //non riesco proprio a trovare una soluzione
 
     }
 
