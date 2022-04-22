@@ -53,7 +53,6 @@ public class UserSupportController {
             RecuperoPasswordTextField.clear();
         }
         alert.show();
-
     }
 
     /*

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import javafx.beans.binding.BooleanExpression;
+import javafx.scene.control.Alert;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,7 +30,6 @@ public class UserManager {
             JsonArray content = JsonParser.parseReader(reader).getAsJsonArray();        //lettura file
             for (JsonElement jsonObject : content)      //conversione dei singoli elementi dell'array Json in oggetti
                 userList.add(gson.fromJson(jsonObject, Admin.class));   //inserimento degli oggetti appena creati
-            System.out.println("Lettura delle utenze avvenuta con successo.");
             reader.close();
 
         } catch (IOException ex) {
@@ -112,6 +113,18 @@ public class UserManager {
     public static void AddUser(Admin admin){
         userList.add(admin);
         WriteJson();
+    }
+
+    public static Boolean RemoveUser(Admin adminToRemove){
+        for (Admin admin: userList){
+            if (admin.getPassword().equals(adminToRemove.getPassword()) && admin.getUserName().equals(adminToRemove.getUserName())){
+                userList.remove(admin);
+                WriteJson();
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public static List<Admin> getUserList() {
