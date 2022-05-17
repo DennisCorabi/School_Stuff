@@ -28,7 +28,6 @@ public class Auto {
         this.costoGiornaliero = costoGiornaliero;
     }
 
-
     public Auto(String targa, Produttore produttore, String modello, Float costoGiornaliero) {
         this.targa = targa;
         this.produttore = produttore;

@@ -10,19 +10,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bitmapsfx.BitmapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bitmap.bitmapsfx.BitmapController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Converitore di immagini">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="239.0" fitWidth="283.0" layoutX="129.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" fx:id="selectedPic" />
+      <ImageView fx:id="selectedPic" fitHeight="239.0" fitWidth="283.0" layoutX="129.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="129.0" layoutY="100.0" text="Immagine selezionata" />
-      <ImageView fitHeight="239.0" fitWidth="283.0" layoutX="472.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="472.0" layoutY="100.0" text="Immagine B/N" />
-      <Button layoutX="292.0" layoutY="95.0" mnemonicParsing="false" text="Scegli" onAction="#chooseImg"/>
-      <Button layoutX="232.0" layoutY="401.0" mnemonicParsing="false" text="Cancella" />
+      <ImageView fx:id="bnPic" fitHeight="239.0" fitWidth="283.0" layoutX="444.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="537.0" layoutY="100.0" text="Immagine B/N" />
+      <Button layoutX="292.0" layoutY="95.0" mnemonicParsing="false" onAction="#chooseImg" text="Scegli" />
+      <Button layoutX="232.0" layoutY="401.0" mnemonicParsing="false" onAction="#deleteImages" text="Cancella" />
+      <Button layoutX="548.0" layoutY="401.0" mnemonicParsing="false" onAction="#saveImage" text="Salva" />
    </children>
 </AnchorPane>
