@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bitmapsfx.BitmapController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Converitore di immagini">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="239.0" fitWidth="283.0" layoutX="129.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" fx:id="selectedPic" />
+      <Label layoutX="129.0" layoutY="100.0" text="Immagine selezionata" />
+      <ImageView fitHeight="239.0" fitWidth="283.0" layoutX="472.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="472.0" layoutY="100.0" text="Immagine B/N" />
+      <Button layoutX="292.0" layoutY="95.0" mnemonicParsing="false" text="Scegli" onAction="#chooseImg"/>
+      <Button layoutX="232.0" layoutY="401.0" mnemonicParsing="false" text="Cancella" />
+   </children>
+</AnchorPane>
